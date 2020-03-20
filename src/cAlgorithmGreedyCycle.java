@@ -47,9 +47,10 @@ public class cAlgorithmGreedyCycle {
             while(result.coordsOnPath.size() < Math.ceil((float)sample.coordList.size()/2)){
                 double bestDistanceNext = -1;
                 int bestPointNext = -1;
+                outerloop:
                 for (int pointNext=0; pointNext<sample.coordList.size(); pointNext++) {
                     for(int point: result.coordsOnPath){            //checking if next point is on resultlist already
-                        if(point == pointNext)  continue;
+                        if(point == pointNext)  continue outerloop;
                     }
                     result.add(pointNext);
                     if(bestDistanceNext==-1 || bestDistanceNext>result.distance){
