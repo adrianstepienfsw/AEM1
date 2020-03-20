@@ -37,4 +37,7 @@ public class cAlgorithm {
         }
         result.distance += sample.distanceMartix[result.coordsOnPath.get(result.coordsOnPath.size()-1)][result.coordsOnPath.get(0)];
     }
+    public void paintPath(){
+
+    }
 }

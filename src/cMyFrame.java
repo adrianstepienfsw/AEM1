@@ -4,7 +4,11 @@ import javax.swing.JPanel;
 public class cMyFrame extends JFrame {
     public cMyFrame(cSample sample) {
         super(sample.name);
-        JPanel panel = new cMyPanel(sample);
+
+        cAlgorithmGreedyCycle greedyAlgorithm = new cAlgorithmGreedyCycle(sample);
+        greedyAlgorithm.makeGreedyCycle();
+
+        JPanel panel = new cMyPanel(sample, greedyAlgorithm.listOfResults.get(greedyAlgorithm.minDistanceIndex));
 
         add(panel);
 

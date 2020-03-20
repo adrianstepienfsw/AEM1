@@ -13,11 +13,6 @@ public class cTest {
         sample1 = new cSample("kroA100.tsp");
         sample2 = new cSample("kroB100.tsp");
 
-        greedy1 = new cAlgorithmGreedyCycle(sample1);
-        greedy2 = new cAlgorithmGreedyCycle(sample2);
-
-        greedy1.makeGreedyCycle();
-        greedy2.makeGreedyCycle();
 
 
         EventQueue.invokeLater(new Runnable() {
