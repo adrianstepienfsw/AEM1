@@ -1,31 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class cAlgorithmGreedyCycle {
-    cSample sample;
-    List<cAlgorithmResult> listOfResults = new ArrayList<cAlgorithmResult>();
-    double averageDistance = -1;
-    double maxDistance = -1;
-    int maxDistanceIndex = -1;
-    double minDistance = -1;
-    int minDistanceIndex = -1;
+public class cAlgorithmGreedyCycle extends cAlgorithm {
 
-    class cAlgorithmResult{
-        List<Integer> coordsOnPath = new ArrayList<Integer>();         //list of indexes points
-        double distance = 0;
-
-        public void add(int point){
-            coordsOnPath.add(point);
-            calculateDistance(this);
-        }
-        public void removeLast(){
-            coordsOnPath.remove(coordsOnPath.size()-1);
-            calculateDistance(this);
-        }
-    }
     cAlgorithmGreedyCycle(cSample _sample){
-        sample = _sample;
+        super(_sample);
     }
+
     void makeGreedyCycle(){
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++){
@@ -79,15 +60,5 @@ public class cAlgorithmGreedyCycle {
         System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
         System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
         System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
-    }
-    public void calculateDistance(cAlgorithmResult result){
-        result.distance = 0;
-        for(int point: result.coordsOnPath){
-            if(result.coordsOnPath.indexOf(point)==0)    continue;
-            else{
-                result.distance += sample.distanceMartix[result.coordsOnPath.get(result.coordsOnPath.indexOf(point)-1)][point];
-            }
-        }
-        result.distance += sample.distanceMartix[result.coordsOnPath.get(result.coordsOnPath.size()-1)][result.coordsOnPath.get(0)];
     }
 }
