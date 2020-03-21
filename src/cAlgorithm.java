@@ -18,12 +18,12 @@ public class cAlgorithm {
         List<Integer> coordsOnPath = new ArrayList<Integer>();         //list of indexes points
         double distance = 0;
 
-        public void add(int point){
-            coordsOnPath.add(point);
+        public void add(int point, int index){
+            coordsOnPath.add(index, point);
             calculateDistance(this);
         }
-        public void removeLast(){
-            coordsOnPath.remove(coordsOnPath.size()-1);
+        public void remove(int index){
+            coordsOnPath.remove(index);
             calculateDistance(this);
         }
     }

@@ -11,36 +11,40 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++){
             cAlgorithmResult result = new cAlgorithmResult();
-            result.add(point1); //adding first point
+            result.add(point1, 0); //adding first point
             double bestDistance = -1;
             int bestPoint2 = -1;
             for (int point2=0; point2<sample.coordList.size(); point2++) {
                 if(point1 != point2){
-                    result.add(point2);
+                    result.add(point2,1);
                     if(bestDistance==-1 || bestDistance>result.distance){
                         bestPoint2 = point2;
                         bestDistance = result.distance;
                     }
-                    result.removeLast();
+                    result.remove(1);
                 }
             }
-            result.add(bestPoint2);         //adding best second point
+            result.add(bestPoint2, 1);         //adding best second point
             while(result.coordsOnPath.size() < Math.ceil((float)sample.coordList.size()/2)){
                 double bestDistanceNext = -1;
                 int bestPointNext = -1;
+                int bestIndexForPointNext = -1;
                 outerloop:
                 for (int pointNext=0; pointNext<sample.coordList.size(); pointNext++) {
                     for(int point: result.coordsOnPath){            //checking if next point is on resultlist already
                         if(point == pointNext)  continue outerloop;
                     }
-                    result.add(pointNext);
-                    if(bestDistanceNext==-1 || bestDistanceNext>result.distance){
-                        bestPointNext = pointNext;
-                        bestDistanceNext = result.distance;
+                    for(int indexForPointNext = 0; indexForPointNext<=result.coordsOnPath.size(); indexForPointNext++) {
+                        result.add(pointNext, indexForPointNext);
+                        if (bestDistanceNext == -1 || bestDistanceNext > result.distance) {
+                            bestPointNext = pointNext;
+                            bestDistanceNext = result.distance;
+                            bestIndexForPointNext = indexForPointNext;
+                        }
+                        result.remove(indexForPointNext);
                     }
-                    result.removeLast();
                 }
-                result.add(bestPointNext);
+                result.add(bestPointNext, bestIndexForPointNext);
             }
             listOfResults.add(result);
         }
