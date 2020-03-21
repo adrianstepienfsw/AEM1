@@ -6,7 +6,7 @@ public class cMyFrame extends JFrame {
         super(sample.name);
 
         cAlgorithmGreedyCycle greedyAlgorithm = new cAlgorithmGreedyCycle(sample);
-        greedyAlgorithm.makeGreedyCycle();
+        greedyAlgorithm.make();
 
         JPanel panel = new cMyPanel(sample, greedyAlgorithm.listOfResults.get(greedyAlgorithm.minDistanceIndex));
 

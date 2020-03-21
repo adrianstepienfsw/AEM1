@@ -3,11 +3,11 @@ import java.util.List;
 
 public class cAlgorithmGreedyCycle extends cAlgorithm {
 
-    cAlgorithmGreedyCycle(cSample _sample){
+    public cAlgorithmGreedyCycle(cSample _sample){
         super(_sample);
     }
 
-    void makeGreedyCycle(){
+    public void make(){
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++) {
             cAlgorithmResult result = new cAlgorithmResult();
