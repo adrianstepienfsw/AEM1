@@ -13,10 +13,7 @@ public class cTest {
         sample1 = new cSample("kroA100.tsp");
         sample2 = new cSample("kroB100.tsp");
 
-
-
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new cMyFrame(sample1);
