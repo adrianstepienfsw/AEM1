@@ -10,9 +10,15 @@ public abstract class cAlgorithm {
     int maxDistanceIndex = -1;
     double minDistance = -1;
     int minDistanceIndex = -1;
+    float percentSmaplesToFinish = 1;
 
-    cAlgorithm(cSample _sample){
+    public cAlgorithm(cSample _sample){
         sample = _sample;
+    }
+
+    public cAlgorithm(cSample _sample, float _percentSmaplesToFinish){
+        sample = _sample;
+        percentSmaplesToFinish = _percentSmaplesToFinish;
     }
 
     class cProposals{

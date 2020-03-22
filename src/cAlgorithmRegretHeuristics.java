@@ -9,6 +9,10 @@ public class cAlgorithmRegretHeuristics extends cAlgorithm {
         super(_sample);
     }
 
+    public cAlgorithmRegretHeuristics(cSample _sample, float _percentSmaplesToFinish){
+        super(_sample, _percentSmaplesToFinish);
+    }
+
     class cProporsalsWithRegret extends cProposals{
         int regret;
 
@@ -40,7 +44,7 @@ public class cAlgorithmRegretHeuristics extends cAlgorithm {
             }
             result.add(bestPoint2, 1);         //adding best second point
 
-            while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() / 2)) {
+            while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() * percentSmaplesToFinish)) {
 
                 //calculating lists of proporsals for each point which isn't on path yet
                 List<cProporsalsWithRegret> listOfProporsals = new ArrayList<cProporsalsWithRegret>();

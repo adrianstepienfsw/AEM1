@@ -7,7 +7,7 @@ public class cMyFrame extends JFrame {
 
         algorithm.make();
 
-        JPanel panel = new cMyPanel(sample, algorithm.listOfResults.get(algorithm.minDistanceIndex));
+        JPanel panel = new cMyPanel(sample, algorithm.listOfResults.get(algorithm.minDistanceIndex-1));
 
         add(panel);
 

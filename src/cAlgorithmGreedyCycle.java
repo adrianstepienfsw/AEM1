@@ -7,6 +7,10 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
         super(_sample);
     }
 
+    public cAlgorithmGreedyCycle(cSample _sample, float _percentSmaplesToFinish){
+        super(_sample, _percentSmaplesToFinish);
+    }
+
     public void make(){
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++) {
@@ -26,7 +30,7 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
             }
             result.add(bestPoint2, 1);         //adding best second point
 
-            while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() / 2)) {
+            while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() * percentSmaplesToFinish)) {
                 double bestCostNext = -1;
                 int bestPointNext = -1;
                 int bestIndexForPointNext = -1;
