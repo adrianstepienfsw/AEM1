@@ -36,11 +36,22 @@ public class cMyPanel extends JPanel {
 
         //drawing points
         for(cSample.cCoords cords: sample.coordList){
+
             points.add(new Ellipse2D.Double(panelMargin+panelWidthPx*cords.x/sample.mapWidth-pointDiameter/4, panelMargin+panelHeightPx*cords.y/sample.mapHeight-pointDiameter/4, pointDiameter/2, pointDiameter/2));
         }
         for(Ellipse2D elipse: points){
+            g2d.drawString(String.valueOf(points.indexOf(elipse)),(int)elipse.getX(), (int)elipse.getY());
             g2d.fill(elipse);
         }
+        Ellipse2D x1 = new Ellipse2D.Double(panelMargin+panelWidthPx*0/sample.mapWidth-pointDiameter/4, panelMargin+panelHeightPx*0/sample.mapHeight-pointDiameter/4, pointDiameter/2, pointDiameter/2);
+        g2d.fill(x1);
+        Ellipse2D x2 = new Ellipse2D.Double(panelMargin+panelWidthPx-pointDiameter/4, panelMargin+panelHeightPx*0/sample.mapHeight-pointDiameter/4, pointDiameter/2, pointDiameter/2);
+        g2d.fill(x2);
+        Ellipse2D x3 = new Ellipse2D.Double(panelMargin+panelWidthPx*0/sample.mapWidth-pointDiameter/4, panelMargin+panelHeightPx*0/sample.mapHeight-pointDiameter/4, pointDiameter/2, pointDiameter/2);
+        g2d.fill(x3);
+        Ellipse2D x4 = new Ellipse2D.Double(panelMargin+panelWidthPx*0/sample.mapWidth-pointDiameter/4, panelMargin+panelHeightPx*0/sample.mapHeight-pointDiameter/4, pointDiameter/2, pointDiameter/2);
+        g2d.fill(x4);
+
 
         //drawing path
         for(int linePoint: result.coordsOnPath){

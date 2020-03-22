@@ -25,8 +25,9 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
                 }
             }
             result.add(bestPoint2, 1);         //adding best second point
+
             while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() / 2)) {
-                double bestDistanceNext = -1;
+                double bestCostNext = -1;
                 int bestPointNext = -1;
                 int bestIndexForPointNext = -1;
                 outerloop:
@@ -34,17 +35,16 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
                     for (int point : result.coordsOnPath) {            //checking if next point is on resultlist already
                         if (point == pointNext) continue outerloop;
                     }
-                    for (int indexForPointNext = 0; indexForPointNext <= result.coordsOnPath.size(); indexForPointNext++) {
-                        result.add(pointNext, indexForPointNext);
-                        if (bestDistanceNext == -1 || bestDistanceNext > result.distance) {
+                    for (int indexForPointNext = 0; indexForPointNext < result.coordsOnPath.size(); indexForPointNext++) {
+                        int cost = calculateCost(pointNext, indexForPointNext, result);
+                        if ((bestCostNext == -1) || (bestCostNext > cost)) {
                             bestPointNext = pointNext;
-                            bestDistanceNext = result.distance;
+                            bestCostNext = cost;
                             bestIndexForPointNext = indexForPointNext;
                         }
-                        result.remove(indexForPointNext);
                     }
                 }
-                result.add(bestPointNext, bestIndexForPointNext);
+                result.add(bestPointNext, bestIndexForPointNext+1);
             }
             listOfResults.add(result);
             System.out.print(".");

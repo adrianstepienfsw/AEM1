@@ -54,7 +54,6 @@ public abstract class cAlgorithm {
 
     public int calculateCost(int pointInSample, int edgeInResult, cAlgorithmResult result){
         int cost = 0;
-
         if(edgeInResult+1<result.coordsOnPath.size()){
             cost += sample.distanceMartix[pointInSample][result.coordsOnPath.get(edgeInResult)];
             cost += sample.distanceMartix[pointInSample][result.coordsOnPath.get(edgeInResult+1)];

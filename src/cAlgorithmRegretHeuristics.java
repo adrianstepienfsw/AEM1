@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,6 @@ public class cAlgorithmRegretHeuristics extends cAlgorithm {
                     for (int point : result.coordsOnPath) {
                         int edge = result.coordsOnPath.indexOf(point);
                         int cost = calculateCost(pointNext, edge, result);
-                        calculateCost(pointNext, edge, result);
                         if(secondIndexToProporsal==-1){
                             if (firstIndexToProporsal==-1){
                                 firstCost = cost;
@@ -103,7 +104,7 @@ public class cAlgorithmRegretHeuristics extends cAlgorithm {
                         indexOfEdge = proporsal.listOfProposals.get(0).indexOfEdge;
                     }
                 }
-                result.add(indexOfNextPoint, indexOfEdge);         //adding best second point
+                result.add(indexOfNextPoint, indexOfEdge+1);         //adding best second point
             }
 
             listOfResults.add(result);
