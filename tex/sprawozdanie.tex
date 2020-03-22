@@ -9,6 +9,8 @@
 \usepackage[procnames]{listings}
 \usepackage{ucs}
 \usepackage{float}
+\usepackage{hyperref}
+
 
 \lstset{
     basicstyle=\ttfamily\small,
@@ -51,6 +53,7 @@
 
 \section{Opis zadania}
 
+\paragraph{}
 Rozważany problem to zmodyfikowany problem komiwojażera. Dany jest zbiór wierzchołków i macierz odległości pomiędzy każdą parą wierzchołków. Celem zadania jest znalezienie najkrótszej ścieżki zamkniętej przechodzącą przez 50\% wszystkich wierzchołków (w przypadku nieparzystej liczby wierzchołków liczba jest zaokrąglana w górę).
 
 \section{Opis zaimplementowanych algorytmów}
@@ -62,9 +65,10 @@ Wybierz pierwszy punkt.
 Wybierz drugi punkt leżący najbliżej pierwszego.
 Jeżeli nie dodałeś wszystkich punktów:
 	Dla pozostałych wolnych punktów:
-		Oblicz koszt dodania punktu do rozwiązania.
-		Sprawdź czy to jest najlepsze rozwiązanie w danym momencie.
-	Dodaj znaleziony najlepszy punkt do cyklu.
+		Dla każdej krawędzi w aktualnym rozwiązaniu:
+			Oblicz koszt dodania punktu do rozwiązania w danej krawędzi.
+			Sprawdź czy to jest najlepsze rozwiązanie w danym momencie.
+	Dodaj znaleziony najlepszy punkt w wybranej krawędzi do cyklu.
 \end{lstlisting}
 
 \subsection{Algorytm z żalem oparty o 1-żal}
@@ -74,8 +78,10 @@ Wybierz pierwszy punkt.
 Wybierz drugi punkt leżący najbliżej pierwszego.
 Jeżeli nie dodałeś wszystkich punktów:
 	Dla pozostałych wolnych punktów:
-		Oblicz koszt dodania punktu do cyklu.
-		Dodaj punkt do listy potencjalnych rozwiązań wraz z kosztem dodania.
+		Dla każdej krawędzi w aktualnym rozwiązaniu:
+			Oblicz koszt dodania punktu do rozwiązania w danej krawędzi.
+			Dodaj punkt do listy potencjalnych rozwiązań wraz z kosztem dodania.
+		Oblicz żal dla danego punktu
 	W liście potencjalnych rozwiązań znajdź rozwiązanie z największym żalem.
 	Dodaj znalezione rozwiązanie z największym żalem do cyklu.
 \end{lstlisting}
@@ -165,7 +171,11 @@ Jeżeli nie dodałeś wszystkich punktów:
 \end{figure}
 
 \section{Wnioski}
+\paragraph{}
+Z wymienionych wyżej pomiarów można wywnioskoważ, że dla podanych warunków problemu (odwiedzanie połowy punktów), algorytm zachłanny radzi sobie lepiej od algorytmu opartego o żal (cykl, który generuje ma mniejszą długość). Przeprowadzono również testy dla przypadku, gdy oba te algorytmy uruchomione zostaną dla wszystkich punktów. Wtedy wyniki są odmienne, algorytm z żalem okazuje się lepszy od algorytmu zachłannego. Jest to spowodowane tym, że dla warunków zadania z odwiedzeniem połowy punktów algorytm z żalem czasami dodaje punkty, które mają duży żal, a w ogóle nie powinny zostać dodane do cyklu z powodu dużego kosztu ich dodania. Gdy odwiedzone mają być wszystkie punkty, koszt dodania punktu nie ma takiego znaczenia, ponieważ prędzej lub później i tak każdy punkt będzie musiał zostać dodany. 
 
-W wymienionych wyżej pomiarach widać, że dla podanych warunków problemu -  odwiedzaniu połowy punktów - algorytm zachłanny radzi sobie lepiej od algorytmu opartego o żal, cykl, który generuje ma mniejszą długość. Przeprowadzono również testy dla przypadku gdy oba te algorytmy uruchomione zostaną dla wszystkich punktów. Wtedy wyniki są odmienne - algorytm z żalem okazuje się lepszy od algorytmu zachłannego.
+\section{Kod programu}
+\paragraph{}
+Repozytorium z kodem programu dostępne jest pod adresem: \url{https://github.com/adrianstepienfsw/AEM1}
 
 \end{document}
