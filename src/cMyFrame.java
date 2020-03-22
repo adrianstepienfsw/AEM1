@@ -2,13 +2,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class cMyFrame extends JFrame {
-    public cMyFrame(cSample sample) {
-        super(sample.name);
+    public cMyFrame(cSample sample, cAlgorithm algorithm) {
+        super(sample.name+" "+algorithm.getClass().getName());
 
-        cAlgorithmRegretHeuristics greedyAlgorithm = new cAlgorithmRegretHeuristics(sample);
-        greedyAlgorithm.make();
+        algorithm.make();
 
-        JPanel panel = new cMyPanel(sample, greedyAlgorithm.listOfResults.get(greedyAlgorithm.minDistanceIndex));
+        JPanel panel = new cMyPanel(sample, algorithm.listOfResults.get(algorithm.minDistanceIndex));
 
         add(panel);
 

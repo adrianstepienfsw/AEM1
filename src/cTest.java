@@ -13,11 +13,18 @@ public class cTest {
         sample1 = new cSample("kroA100.tsp");
         sample2 = new cSample("kroB100.tsp");
 
+        cAlgorithmGreedyCycle greedyCycleSmaple1 = new cAlgorithmGreedyCycle(sample1);
+        cAlgorithmGreedyCycle greedyCycleSmaple2 = new cAlgorithmGreedyCycle(sample2);
+        cAlgorithmRegretHeuristics regretHeuristicsSample1 = new cAlgorithmRegretHeuristics(sample1);
+        cAlgorithmRegretHeuristics regretHeuristicsSample2 = new cAlgorithmRegretHeuristics(sample2);
+
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new cMyFrame(sample1);
-                new cMyFrame(sample2);
+                new cMyFrame(sample1, greedyCycleSmaple1);
+                new cMyFrame(sample2, greedyCycleSmaple2);
+                new cMyFrame(sample1, regretHeuristicsSample1);
+                new cMyFrame(sample2, regretHeuristicsSample2);
             }
         });
     }
