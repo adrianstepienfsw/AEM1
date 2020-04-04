@@ -2,12 +2,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class cMyFrame extends JFrame {
-    public cMyFrame(cSample sample, cAlgorithm algorithm) {
-        super(sample.name+" "+algorithm.getClass().getName());
+    public cMyFrame(cSample sample, cAlgorithm.cAlgorithmResult _result, String name) {
+        super(sample.name+" "+name);
 
-        algorithm.make();
 
-        JPanel panel = new cMyPanel(sample, algorithm.listOfResults.get(algorithm.minDistanceIndex-1));
+
+        JPanel panel = new cMyPanel(sample, _result);
 
         add(panel);
 
