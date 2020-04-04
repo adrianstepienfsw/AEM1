@@ -18,14 +18,16 @@ public class cTest {
         //cAlgorithmRegretHeuristics regretHeuristicsSample1 = new cAlgorithmRegretHeuristics(sample1, 0.5f);
         //cAlgorithmRegretHeuristics regretHeuristicsSample2 = new cAlgorithmRegretHeuristics(sample2, 0.5f);
 
-        cAlgorithmLocalSearchGreedyPointsChanging localSearchGreedySample1 = new cAlgorithmLocalSearchGreedyPointsChanging(sample1, 0.5f);
+        //cAlgorithmLocalSearchGreedyPointsChanging localSearchGreedyPointsSample1 = new cAlgorithmLocalSearchGreedyPointsChanging(sample1, 0.5f);
+        cAlgorithmLocalSearchGreedyCornersChanging localSearchGreedyCornersSample1 = new cAlgorithmLocalSearchGreedyCornersChanging(sample1, 0.5f);
 
         //greedyCycleSmaple1.make();
         //greedyCycleSmaple2.make();
         //regretHeuristicsSample1.make();
         //regretHeuristicsSample2.make();
 
-        localSearchGreedySample1.make();
+        //localSearchGreedyPointsSample1.make();
+        localSearchGreedyCornersSample1.make();
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -34,7 +36,8 @@ public class cTest {
                 //new cMyFrame(sample2,  greedyCycleSmaple2.listOfResults.get(greedyCycleSmaple2.minDistanceIndex-1), greedyCycleSmaple2.getClass().getName());
                 //new cMyFrame(sample1,  regretHeuristicsSample1.listOfResults.get(regretHeuristicsSample1.minDistanceIndex-1), regretHeuristicsSample1.getClass().getName());
                 //new cMyFrame(sample2,  regretHeuristicsSample2.listOfResults.get(regretHeuristicsSample2.minDistanceIndex-1), regretHeuristicsSample2.getClass().getName());
-                new cMyFrame(sample1,  localSearchGreedySample1.listOfResults.get(localSearchGreedySample1.minDistanceIndex-1), localSearchGreedySample1.getClass().getName());
+                //new cMyFrame(sample1,  localSearchGreedyPointsSample1.listOfResults.get(localSearchGreedyPointsSample1.minDistanceIndex-1), localSearchGreedyPointsSample1.getClass().getName());
+                new cMyFrame(sample1,  localSearchGreedyCornersSample1.listOfResults.get(localSearchGreedyCornersSample1.minDistanceIndex-1), localSearchGreedyCornersSample1.getClass().getName());
             }
         });
     }

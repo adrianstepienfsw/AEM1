@@ -11,7 +11,7 @@ public class cAlgorithmLocalSearchGreedyPointsChanging extends cAlgorithm {
         System.out.println("Making Local Search Greedy Algorithm for :"+sample.name);
 
         for(int x = 0; x<100; x++) {
-            cAlgorithmResult randomResult = makeRandomResult(50);
+            cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
 
 
             boolean wasBetter = true;
@@ -21,7 +21,6 @@ public class cAlgorithmLocalSearchGreedyPointsChanging extends cAlgorithm {
                 while (wasBetter) {
                     wasBetter = false;
 
-                    //generating Neighborhood
                     List<Integer> order = makeRandomSeries(50, 50);
                     for (int point1ToChange : order) {
                         List<Integer> order2 = makeRandomSeries(100, 100);

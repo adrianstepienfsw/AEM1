@@ -59,6 +59,11 @@ public abstract class cAlgorithm {
             coordsOnPath.remove(index);
             calculatePathDistance(this);
         }
+
+        //adding point whitout calculating
+        public void addWithoutCalculating(int point){
+            coordsOnPath.add(point);
+        }
     }
 
     //calculating cost of inserting point to "result". Point which index in sample is "pointInSample". "edgeInResult" is
@@ -91,6 +96,7 @@ public abstract class cAlgorithm {
                 break;
             }
         }
+
 
         if(point2IsInResult){   //two points in result
             if((Math.abs(point1InResult - point2InResult) == 1)||Math.abs(point1InResult - point2InResult) == (result.coordsOnPath.size()-1)){     //two points next to each oder
@@ -206,6 +212,30 @@ public abstract class cAlgorithm {
         return delta;
     }
 
+    public int calculateDeltaToCorners(int corner1InResult, int corner2InResult, cAlgorithmResult result){
+        int corner1point1 = result.coordsOnPath.get(corner1InResult);
+        int corner2point1 = result.coordsOnPath.get(corner2InResult);
+        int corner1point2;
+        int corner2point2;
+        if(corner1InResult==result.coordsOnPath.size()-1)
+            corner1point2 = result.coordsOnPath.get(0);
+        else
+            corner1point2 = result.coordsOnPath.get(corner1InResult+1);
+        if(corner2InResult==result.coordsOnPath.size()-1)
+            corner2point2 = result.coordsOnPath.get(0);
+        else
+            corner2point2 = result.coordsOnPath.get(corner2InResult+1);
+
+        int delta = 0;
+
+        delta += sample.distanceMartix[corner1point1][corner2point1];
+        delta += sample.distanceMartix[corner1point2][corner2point2];
+        delta -= sample.distanceMartix[corner1point1][corner1point2];
+        delta -= sample.distanceMartix[corner2point1][corner2point2];
+
+        return delta;
+    }
+
     public cAlgorithmResult changePoints(int point1InResult, int point2InSample, cAlgorithmResult result){
         boolean point2IsInResult = false;
         int point2InResult = -1;
@@ -230,6 +260,53 @@ public abstract class cAlgorithm {
             result.add(point2InSample ,point1InResult);
         }
         return result;
+    }
+
+    public cAlgorithmResult changeCorners(int corner1InResult, int corner2InResult, cAlgorithmResult result){
+        int corner1point1 = corner1InResult;
+        int corner2point1 = corner2InResult;
+        int corner1point2;
+        int corner2point2;
+        if(corner1InResult==result.coordsOnPath.size()-1)
+            corner1point2 = 0;
+        else
+            corner1point2 = corner1InResult+1;
+        if(corner2InResult==result.coordsOnPath.size()-1)
+            corner2point2 = 0;
+        else
+            corner2point2 = corner2InResult+1;
+
+        cAlgorithmResult returnResult = new cAlgorithmResult();
+        int index = 1;
+        int pom = 0;
+
+        returnResult.addWithoutCalculating(result.coordsOnPath.get(corner1point2));
+        if((corner1point2+index) > result.coordsOnPath.size()-1)
+            pom = -result.coordsOnPath.size();
+        while((corner1point2+index+pom) != (corner2point1)){
+            returnResult.addWithoutCalculating(result.coordsOnPath.get(corner1point2+index+pom));
+            index++;
+            if((corner1point2+index) > result.coordsOnPath.size()-1)
+                pom = -result.coordsOnPath.size();
+        }
+        returnResult.addWithoutCalculating(result.coordsOnPath.get(corner1point2+index+pom));
+        index++;
+        if((corner1point2+index) > result.coordsOnPath.size()-1)
+            pom = -result.coordsOnPath.size();
+        returnResult.addWithoutCalculating(result.coordsOnPath.get(corner1point1));
+        int index1 = -1;
+        pom = 0;
+        if((corner1point1+index1) < 0)
+            pom = result.coordsOnPath.size();
+        while(result.coordsOnPath.get(corner1point1+index1+pom) != result.coordsOnPath.get(corner2point2)){
+            returnResult.addWithoutCalculating(result.coordsOnPath.get(corner1point1+index1+pom));
+            index1--;
+            if((corner1point1+index1) < 0)
+                pom = result.coordsOnPath.size();
+        }
+        returnResult.add(result.coordsOnPath.get(corner2point2), result.coordsOnPath.size()-1);
+
+        return returnResult;
     }
 
     public void calculatePathDistance(cAlgorithmResult result){
@@ -280,6 +357,48 @@ public abstract class cAlgorithm {
             }
 
             result.add(random);
+        }
+        return result;
+    }
+
+    //generate list of "count" Integers in range 0-("threshold"-1), final list dont have elements from list
+    public List<Integer> makeRandomSeriesExcludingList(int count, int threshold, List<Integer> list) {
+        List<Integer> result = new ArrayList<>();
+        Random randomGenerator = new Random();
+
+        while (result.size() < count) {
+            int random = (int) Math.floor(randomGenerator.nextFloat() * (threshold - result.size() - list.size()));
+            outLoop:
+            for(int i=0; i<=random; i++){
+                for(int cord : result){
+                    if(cord==i){
+                        random++;
+                        continue outLoop;
+                    }
+                }
+                for(int cord : list){
+                    if(cord==i){
+                        random++;
+                        continue outLoop;
+                    }
+                }
+            }
+
+            result.add(random);
+        }
+        return result;
+    }
+
+    //generate list of "count" Integers from "list"
+    public List<Integer> makeRandomSeriesOnlyFromList(int count, List<Integer> list) {
+        List<Integer> x = makeRandomSeries(list.size(), list.size());
+
+        List<Integer> result = new ArrayList<>();
+
+        int i=0;
+        while(result.size()<count){
+            result.add(list.get(x.get(i)));
+            i++;
         }
         return result;
     }
