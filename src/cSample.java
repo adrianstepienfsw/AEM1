@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class cSample {
+public class cSample extends Object {
     public cSample(String path){
         name = path;
         readSampleFromFile(path);
@@ -25,6 +25,7 @@ public class cSample {
             y = _y;
         }
     }
+
 
     public void readSampleFromFile(String path){
         try{
