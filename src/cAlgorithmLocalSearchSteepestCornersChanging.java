@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,10 +12,11 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
     public void make(){
         System.out.println("Making Local Search Steepest (changing with corners) Algorithm for :"+sample.name);
 
-        long startTime = System.currentTimeMillis();
+        List<Long> times = new ArrayList<>();
 
         for(int x = 0; x<100; x++) {
             cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
+            long startTime = System.currentTimeMillis();
 
             boolean wasBetter = true;
 
@@ -76,6 +78,8 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
             }
             listOfResults.add(randomResult);
             System.out.print(".");
+            long endTime = System.currentTimeMillis();
+            times.add(endTime-startTime);
         }
         long endTime = System.currentTimeMillis();
         System.out.println(".");
@@ -91,11 +95,25 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
             }
             sum += result.distance;
         }
+
+        long timeSum = 0;
+        long minTime = times.get(0);
+        long maxTime = times.get(0);
+        for (long time:times){
+            timeSum += time;
+            if(time<minTime)
+                minTime = time;
+            if(time>maxTime)
+                maxTime = time;
+        }
+
         averageDistance = sum/listOfResults.size();
         System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
         System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
         System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
-        System.out.println("Average time executing one loop :"+(endTime-startTime)/100+" ms");
+        System.out.println("Average time executing one loop :"+(timeSum)/100+" ms");
+        System.out.println("Minimum time executing one loop :"+minTime+" ms");
+        System.out.println("Maximum time executing one loop :"+maxTime+" ms");
         System.out.println();
 
     }
