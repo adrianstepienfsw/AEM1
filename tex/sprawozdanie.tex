@@ -10,6 +10,7 @@
 \usepackage{ucs}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{makecell}
 
 
 \lstset{
@@ -162,18 +163,20 @@ Dopóki nowe rozwiązanie jest lepsze:
 \subsection{Wyniki pomiarów}
 
 \begin{center}
+	\hspace*{-2.75cm}
 	\begin{tabular}{ l | l | l | l | l | l | l }
-		\textbf{Pomiar} & \textbf{Wartość średnia celu} & \textbf{Wartość minimalna celu} & \textbf{Wartość maksymalna celu} & \textbf{Średni czas [ms]} & \textbf{Minimalny czas [ms]} & \textbf{Maksymalny czas [ms]} \\
+		\textbf{Pomiar} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} & \textbf{\makecell{Średni \\ czas [ms]}} & \textbf{\makecell{Minimalny \\ czas [ms]}} & \textbf{\makecell{Maksymalny \\ czas [ms]}} \\
 		\hline
-		Zamiana wierzchołków w wersji stromej dla kroA100    & 18116.54 & 14316.00 & 16646.00 & 701 & 436 &  925 \\
-		Zamiana wierzchołków w wersji zachłannej dla kroA100 & 16747.61 & 13694.00 & 16207.00 & 116 &  71 &  224 \\
-		Zamiana krawędzi w wersji stromej dla kroA100        & 12545.69 & 10769.00 & 11889.00 & 685 & 517 &  858 \\
-		Zamiana krawędzi w wersji zachłannej dla kroA100     & 13469.44 & 11091.00 & 14262.00 &  56 &  26 &   92 \\
-		Zamiana wierzchołków w wersji stromej dla kroB100    & 17721.50 & 14033.00 & 15635.00 & 717 & 504 & 1108 \\
-		Zamiana wierzchołków w wersji zachłannej dla kroB100 & 16873.84 & 12300.00 & 15330.00 & 106 &  72 &  158 \\
-		Zamiana krawędzi w wersji stromej dla kroB100        & 12541.73 & 11199.00 & 13471.00 & 665 & 502 &  835 \\
-		Zamiana krawędzi w wersji zachłannej dla kroB100     & 13261.47 & 11477.00 & 13227.00 &  60 &  25 &  115 \\
+		\makecell{Zamiana wierzchołków \\ w wersji stromej \\ dla kroA100}    & 18116.54 & 14316.00 & 16646.00 & 701 & 436 &  925 \\
+		\makecell{Zamiana wierzchołków \\ w wersji zachłannej \\ dla kroA100} & 16747.61 & 13694.00 & 16207.00 & 116 &  71 &  224 \\
+		\makecell{Zamiana krawędzi \\ w wersji stromej \\ dla kroA100}        & 12545.69 & 10769.00 & 11889.00 & 685 & 517 &  858 \\
+		\makecell{Zamiana krawędzi \\ w wersji zachłannej \\ dla kroA100}     & 13469.44 & 11091.00 & 14262.00 &  56 &  26 &   92 \\
+		\makecell{Zamiana wierzchołków \\ w wersji stromej \\ dla kroB100}    & 17721.50 & 14033.00 & 15635.00 & 717 & 504 & 1108 \\
+		\makecell{Zamiana wierzchołków \\ w wersji zachłannej \\ dla kroB100} & 16873.84 & 12300.00 & 15330.00 & 106 &  72 &  158 \\
+		\makecell{Zamiana krawędzi \\ w wersji stromej \\ dla kroB100}        & 12541.73 & 11199.00 & 13471.00 & 665 & 502 &  835 \\
+		\makecell{Zamiana krawędzi \\ w wersji zachłannej \\ dla kroB100}     & 13261.47 & 11477.00 & 13227.00 &  60 &  25 &  115 \\
 	\end{tabular}
+	\hspace*{-2.75cm}
 \end{center}
 
 \subsection{Wizualizacje najlepszych rozwiązań}
