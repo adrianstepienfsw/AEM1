@@ -68,14 +68,13 @@ Dopóki nowe rozwiązanie jest lepsze:
     Oznacz, że nowe rozwiązanie jest gorsze.
     Wygeneruj losową serię.
     Dla każdego punktu w serii:
-        Oblicz dystans aktualnego rozwiązania.
         Wygeneruj drugą losową serię.
         Dla każdego punktu w drugiej losowej serii:
             Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
             Oblicz deltę.
             Jeżeli delta jest mniejsza od 0:
-                Zamień punkt z rozwiązania wskazany, przez pierwszą losową serię, na punkt z drugiej serii, który jest poza rozwiązaniem.
-                Oznacz, że nowe rozwiązanie jest lepsze.
+                Zamień punkt z rozwiązania wskazany, przez pierwszą losową serię, na punkt z drugiej serii.
+                Oznacz, że nowe rozwiązanie jest lepsze i przejdź do pętli zewnętrznej.
 \end{lstlisting}
 
 \subsubsection{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany wierzchołków}
@@ -87,7 +86,6 @@ Dopóki nowe rozwiązanie jest lepsze:
     Wyzeruj najlepszą deltę i najlepsze punkty do zamiany.
     Wygeneruj losową serię.
     Dla każdego punktu w serii:
-        Oblicz dystans aktualnego rozwiązania.
         Wygeneruj drugą losową serię.
         Dla każdego punktu w drugiej losowej serii:
             Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
@@ -106,26 +104,28 @@ Wygeneruj losowe rozwiązanie.
 Dopóki nowe rozwiązanie jest lepsze:
     Oznacz, że nowe rozwiązanie jest gorsze.
     Wyzeruj najlepszą deltę i najlepsze punkty do zamiany.
-    Wygeneruj losową serię.
-    Dla każdego punktu w serii:
-        Oblicz dystans aktualnego rozwiązania.
-        Wygeneruj drugą losową serię bez punktów z aktualnego rozwiązania.
-        Dla każdego punktu w drugiej losowej serii:
-            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
-            Oblicz deltę.
-            Jeżeli delta jest mniejsza od zera
-                Zamień znalezione dwa punkty ze sobą.
-                Oznacz, że nowe rozwiązanie jest lepsze.
-    Wygeneruj losową serię.
-    Dla każdego punktu w serii:
-        Oblicz dystans aktualnego rozwiązania.
-        Wygeneruj drugą losową serię.
-        Dla każdego punktu w drugiej losowej serii:
-            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii lub pierwszy i drugi punkt sąsiadują za sobą, to przejdź do następnego punktu z drugiej serii.
-            Oblicz deltę.
-            Jeżeli delta jest mniejsza od zera
-                Zamień znalezione dwa punkty ze sobą.
-                Oznacz, że nowe rozwiązanie jest lepsze.
+    Wylosuj czy następuje wymiana wierzchołków pozatrasowych czy krawędzi wewnątrz trasowych
+    Jeżeli wylosowano wymianę wierzchołków pozatrasowych
+    	Wygeneruj losową serię.
+    	Dla każdego punktu w serii:
+        	Oblicz dystans aktualnego rozwiązania.
+        	Wygeneruj drugą losową serię bez punktów z aktualnego rozwiązania.
+        	Dla każdego punktu w drugiej losowej serii:
+            	Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
+            	Oblicz deltę.
+            	Jeżeli delta jest mniejsza od zera
+                	Zamień znalezione dwa punkty ze sobą.
+                	Oznacz, że nowe rozwiązanie jest lepsze i przejdź do pętli zewnętrznej.
+	Jeżeli wylosowano wymianę krawędzi
+    	Wygeneruj losową serię.
+    	Dla każdej krawędzi w serii:
+        	Wygeneruj drugą losową serię.
+        	Dla każdej krawędzi w drugiej losowej serii:
+            	Jeżeli wybrana krawędź jest taka sama jak krawędź z pierwszej serii lub sąsiadują za sobą, to przejdź do następnej krawędzi z drugiej serii.
+            	Oblicz deltę.
+            	Jeżeli delta jest mniejsza od zera
+                	Zamień znalezione dwie krawędzie.
+                	Oznacz, że nowe rozwiązanie jest lepsze i przejdź do pętli zewnętrznej.
 \end{lstlisting}
 
 \subsubsection{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany krawędzi}
@@ -148,10 +148,9 @@ Dopóki nowe rozwiązanie jest lepsze:
                 Oznacz, że nowe rozwiązanie jest lepsze.
     Wygeneruj losową serię.
     Dla każdego punktu w serii:
-        Oblicz dystans aktualnego rozwiązania.
         Wygeneruj drugą losową serię.
-        Dla każdego punktu w drugiej losowej serii:
-            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii lub pierwszy i drugi punkt sąsiadują za sobą, to przejdź do następnego punktu z drugiej serii.
+        Dla każdej krawędzi w drugiej losowej serii:
+            Jeżeli wybrana krawędź jest taka sama jak krawędź z pierwszej serii lub sąsiadują za sobą, to przejdź do następnej krawędzi z drugiej serii.
             Oblicz deltę.
             Jeżeli delta jest lepsza od najlepszej delty:
                 Zamień najlepszą deltę na obliczoną deltę.
@@ -159,6 +158,10 @@ Dopóki nowe rozwiązanie jest lepsze:
                 Oznacz, że nowe rozwiązanie jest lepsze.
     Jeżeli najlepsza delta jest mniejsza od 0, to zamień znalezione dwa punkty ze sobą.
 \end{lstlisting}
+
+\subsubsection{Sposób randomizacji kolejności przeglądania}
+
+W algorytmie wykorzystano randomizację kolejności przeszukiwania. Są to wszystkie operacje opisane jako generowanie serii. Polegają one na wygenerowaniu indeksów krawędzi lub punktów (w zależności od tego co będzie wymieniane) w losowej kolejności. Następnie, gdy przeglądane są kolejne punkty lub krawędzie są one pobierane z wygenerowanej serii, dzięki czemu kolejność przeglądania za każdą iteracją pętli głównej jest inna. 
 
 \subsection{Wyniki pomiarów}
 
@@ -247,7 +250,7 @@ Dopóki nowe rozwiązanie jest lepsze:
 
 \subsection{Wnioski}
 
-Z wymienionych wyżej pomiarów można wywnioskować, że dla podanych warunków problemu zamiana kolejności wierzchołków jest lepsza od wymiany wierzchołków w rozwiązaniu na wierzchołki poza rozwiązaniem. Moża również zaobserwować, że wersja zachłanna dla zamiany wierzchołków na wierzchołki poza rozwiązaniem daje średnio lepsze wyniki od wersji stromej. Dla zamiany kolejności wierzchołków rozwiązania wyniki są odwrotne - wersja stroma daje średnio lepsze rezultaty od wersji zachłannej.
+Z wymienionych wyżej pomiarów można wywnioskować, że dla podanych warunków problemu zamiana kolejności krawędzi dla obu typów algorytmu daje dużo lepsze wyniki niż wymiana wierzchołków. Moża również zaobserwować, że wersja zachłanna dla zamiany wierzchołków daje średnio lepsze wyniki od wersji stromej. Dla zamiany kolejności krawędzi rozwiązania wyniki są odwrotne - wersja stroma daje średnio lepsze rezultaty od wersji zachłannej. Wersja stroma ma o wiele większe czasy wykonywania z powodu, że musi zawsze przeszukiwać całe rozwiązanie w poszukiwaniu najlepszego ruchu, a wersja zachłanna wybiera pierwszy poprawiający rozwiązanie ruch. 
 
 \section{Zadanie 1}
 
