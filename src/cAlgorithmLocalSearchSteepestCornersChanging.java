@@ -11,6 +11,8 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
     public void make(){
         System.out.println("Making Local Search Steepest (changing with corners) Algorithm for :"+sample.name);
 
+        long startTime = System.currentTimeMillis();
+
         for(int x = 0; x<100; x++) {
             cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
 
@@ -27,7 +29,7 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
                     int bestMode = 0;
                     //changing points which are out of result
                     List<Integer> order = makeRandomSeries(50, 50);
-                    /*for (int point1ToChange : order) {
+                    for (int point1ToChange : order) {
                         List<Integer> order2 = makeRandomSeriesExcludingList(50, 100, randomResult.coordsOnPath);
                         double dist1 = randomResult.distance;
                         for (int point2ToChange : order2) {
@@ -42,9 +44,7 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
                                 wasBetter = true;
                             }
                         }
-                        if (wasBetter)
-                            break;
-                    }*/
+                    }
                              //changing corners
                     order = makeRandomSeries(50, 50);
                     for (int corner1ToChange : order) {
@@ -62,13 +62,13 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
                                 wasBetter = true;
                             }
                         }
-                        if (wasBetter)
-                            break;
                     }
-                    if(bestMode == 0)
-                        randomResult = changePoints(bestPoint1ToChange, bestPoint2ToChange, randomResult);
-                    else if (bestMode == 1)
-                        randomResult = changeCorners(bestPoint1ToChange, bestPoint2ToChange, randomResult);
+                    if(bestDelta<0) {
+                        if (bestMode == 0)
+                            randomResult = changePoints(bestPoint1ToChange, bestPoint2ToChange, randomResult);
+                        else if (bestMode == 1)
+                            randomResult = changeCorners(bestPoint1ToChange, bestPoint2ToChange, randomResult);
+                    }
 
                 }
             } catch (Throwable e) {
@@ -77,6 +77,7 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
             listOfResults.add(randomResult);
             System.out.print(".");
         }
+        long endTime = System.currentTimeMillis();
         System.out.println(".");
         double sum = 0;
         for(cAlgorithm.cAlgorithmResult result : listOfResults){         //create statistics
@@ -94,5 +95,8 @@ public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
         System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
         System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
         System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
+        System.out.println("Average time executing one loop :"+(endTime-startTime)/100+" ms");
+        System.out.println();
+
     }
 }

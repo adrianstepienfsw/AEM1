@@ -11,6 +11,7 @@ public class cAlgorithmLocalSearchGreedyCornersChanging extends cAlgorithm {
     public void make(){
         System.out.println("Making Local Search Greedy (changing with corners) Algorithm for :"+sample.name);
 
+        long startTime = System.currentTimeMillis();
         for(int x = 0; x<100; x++) {
             cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
 
@@ -71,6 +72,7 @@ public class cAlgorithmLocalSearchGreedyCornersChanging extends cAlgorithm {
             listOfResults.add(randomResult);
             System.out.print(".");
         }
+        long endTime = System.currentTimeMillis();
         System.out.println(".");
         double sum = 0;
         for(cAlgorithm.cAlgorithmResult result : listOfResults){         //create statistics
@@ -88,5 +90,7 @@ public class cAlgorithmLocalSearchGreedyCornersChanging extends cAlgorithm {
         System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
         System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
         System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
+        System.out.println("Average time executing one loop :"+(endTime-startTime)/100+" ms");
+        System.out.println();
     }
 }
