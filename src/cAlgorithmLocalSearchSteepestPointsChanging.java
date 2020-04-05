@@ -1,14 +1,14 @@
 import java.util.List;
 
-public class cAlgorithmLocalSearchGreedyPointsChanging extends cAlgorithm {
+public class cAlgorithmLocalSearchSteepestPointsChanging extends cAlgorithm {
 
-    public cAlgorithmLocalSearchGreedyPointsChanging(cSample _sample, float _percentSmaplesToFinish){
+    public cAlgorithmLocalSearchSteepestPointsChanging(cSample _sample, float _percentSmaplesToFinish){
         super(_sample, _percentSmaplesToFinish);
     }
 
     @Override
     public void make(){
-        System.out.println("Making Local Search Greedy (changing with points) Algorithm for :"+sample.name);
+        System.out.println("Making Local Search Steepest (changing with points) Algorithm for :"+sample.name);
 
         for(int x = 0; x<100; x++) {
             cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
@@ -22,6 +22,9 @@ public class cAlgorithmLocalSearchGreedyPointsChanging extends cAlgorithm {
                     wasBetter = false;
 
                     List<Integer> order = makeRandomSeries(50, 50);
+                    int bestDelta = 0;
+                    int bestPoint1ToChange = 0;
+                    int bestPoint2ToChange = 0;
                     for (int point1ToChange : order) {
                         List<Integer> order2 = makeRandomSeries(100, 100);
                         double dist1 = randomResult.distance;
@@ -29,18 +32,19 @@ public class cAlgorithmLocalSearchGreedyPointsChanging extends cAlgorithm {
                             if(point2ToChange == randomResult.coordsOnPath.get(point1ToChange))
                                 continue;
                             int delta = calculateDelta(point1ToChange, point2ToChange, randomResult);
-                            if (delta < 0) {
-                                randomResult = changePoints(point1ToChange, point2ToChange, randomResult);
-                                if (delta != (randomResult.distance - dist1))
-                                    throw new Throwable("Wyliczona delta się nie zgadza");
+                            if (delta < bestDelta) {
+                                bestDelta = delta;
+                                bestPoint1ToChange = point1ToChange;
+                                bestPoint2ToChange = point2ToChange;
                                 wasBetter = true;
-                                break;
                             }
                         }
                         if (wasBetter)
                             break;
                     }
-
+                    if(bestDelta<0){
+                        randomResult = changePoints(bestPoint1ToChange, bestPoint2ToChange, randomResult);
+                    }
                 }
             } catch (Throwable e) {
                 e.printStackTrace();

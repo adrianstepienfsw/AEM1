@@ -9,7 +9,7 @@ public class cAlgorithmLocalSearchGreedyCornersChanging extends cAlgorithm {
 
     @Override
     public void make(){
-        System.out.println("Making Local Search Greedy Algorithm for :"+sample.name);
+        System.out.println("Making Local Search Greedy (changing with corners) Algorithm for :"+sample.name);
 
         for(int x = 0; x<100; x++) {
             cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
