@@ -51,14 +51,211 @@
 
 \maketitle
 
-\section{Opis zadania}
+\section{Zadanie 2}
+
+\subsection{Opis zadania}
+
+Zadanie polega na implementacji lokalnego przeszukiwania dla zmodyfikowane problemu komiwojażera. Lokalne przeszukiwanie my być zaimplementowane w wersjach stromej i zachłannej z dwoma różnym rodzajami sąsiedztwa.
+
+\subsection{Opis zaimplementowanych algorytmów}
+
+\subsubsection{Algorytm lokalnego przeszukiwania w wersji zachłannej dla zamiany wierzchołków}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Dopóki nowe rozwiązanie jest lepsze:
+    Oznacz, że nowe rozwiązanie jest gorsze.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest mniejsza od 0:
+                Zamień punkt z rozwiązania wskazany, przez pierwszą losową serię, na punkt z drugiej serii, który jest poza rozwiązaniem.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+\end{lstlisting}
+
+\subsubsection{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany wierzchołków}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Dopóki nowe rozwiązanie jest lepsze:
+    Oznacz, że nowe rozwiązanie jest gorsze.
+    Wyzeruj najlepszą deltę i najlepsze punkty do zamiany.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest lepsza od najlepszej delty:
+                Zamień najlepszą deltę na obliczoną deltę.
+                Zamień znalezione punkty z obecnymi punktami do zamiany.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+    Jeżeli najlepsza delta jest mniejsza od 0, to zamień znalezione dwa punkty ze sobą.
+\end{lstlisting}
+
+\subsubsection{Algorytm lokalnego przeszukiwania w wersji zachłannej dla zamiany krawędzi}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Dopóki nowe rozwiązanie jest lepsze:
+    Oznacz, że nowe rozwiązanie jest gorsze.
+    Wyzeruj najlepszą deltę i najlepsze punkty do zamiany.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię bez punktów z aktualnego rozwiązania.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest mniejsza od zera
+                Zamień znalezione dwa punkty ze sobą.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii lub pierwszy i drugi punkt sąsiadują za sobą, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest mniejsza od zera
+                Zamień znalezione dwa punkty ze sobą.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+\end{lstlisting}
+
+\subsubsection{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany krawędzi}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Dopóki nowe rozwiązanie jest lepsze:
+    Oznacz, że nowe rozwiązanie jest gorsze.
+    Wyzeruj najlepszą deltę i najlepsze punkty do zamiany.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię bez punktów z aktualnego rozwiązania.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest lepsza od najlepszej delty:
+                Zamień najlepszą deltę na obliczoną deltę.
+                Zamień znalezione punkty z obecnymi punktami do zamiany.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+    Wygeneruj losową serię.
+    Dla każdego punktu w serii:
+        Oblicz dystans aktualnego rozwiązania.
+        Wygeneruj drugą losową serię.
+        Dla każdego punktu w drugiej losowej serii:
+            Jeżeli wybrany punkt jest taki sam jak punkt z pierwszej serii lub pierwszy i drugi punkt sąsiadują za sobą, to przejdź do następnego punktu z drugiej serii.
+            Oblicz deltę.
+            Jeżeli delta jest lepsza od najlepszej delty:
+                Zamień najlepszą deltę na obliczoną deltę.
+                Zamień znalezione punkty z obecnymi punktami do zamiany.
+                Oznacz, że nowe rozwiązanie jest lepsze.
+    Jeżeli najlepsza delta jest mniejsza od 0, to zamień znalezione dwa punkty ze sobą.
+\end{lstlisting}
+
+\subsection{Wyniki pomiarów}
+
+\begin{center}
+	\begin{tabular}{ l | l | l | l | l | l | l }
+		\textbf{Pomiar} & \textbf{Wartość średnia celu} & \textbf{Wartość minimalna celu} & \textbf{Wartość maksymalna celu} & \textbf{Średni czas [ms]} & \textbf{Minimalny czas [ms]} & \textbf{Maksymalny czas [ms]} \\
+		\hline
+		Zamiana wierzchołków w wersji stromej dla kroA100    & 18116.54 & 14316.00 & 16646.00 & 701 & 436 &  925 \\
+		Zamiana wierzchołków w wersji zachłannej dla kroA100 & 16747.61 & 13694.00 & 16207.00 & 116 &  71 &  224 \\
+		Zamiana krawędzi w wersji stromej dla kroA100        & 12545.69 & 10769.00 & 11889.00 & 685 & 517 &  858 \\
+		Zamiana krawędzi w wersji zachłannej dla kroA100     & 13469.44 & 11091.00 & 14262.00 &  56 &  26 &   92 \\
+		Zamiana wierzchołków w wersji stromej dla kroB100    & 17721.50 & 14033.00 & 15635.00 & 717 & 504 & 1108 \\
+		Zamiana wierzchołków w wersji zachłannej dla kroB100 & 16873.84 & 12300.00 & 15330.00 & 106 &  72 &  158 \\
+		Zamiana krawędzi w wersji stromej dla kroB100        & 12541.73 & 11199.00 & 13471.00 & 665 & 502 &  835 \\
+		Zamiana krawędzi w wersji zachłannej dla kroB100     & 13261.47 & 11477.00 & 13227.00 &  60 &  25 &  115 \\
+	\end{tabular}
+\end{center}
+
+\subsection{Wizualizacje najlepszych rozwiązań}
+
+\subsubsection{Zamiana wierzchołków w wersji stromej dla kroA100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroA_steepest_points}
+\caption{Zamiana wierzchołków w wersji stromej dla kroA100}
+\end{figure}
+
+\subsubsection{Zamiana wierzchołków w wersji zachłannej dla kroA100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroA_greedy_points}
+\caption{Zamiana wierzchołków w wersji zachłannej dla kroA100}
+\end{figure}
+
+\subsubsection{Zamiana krawędzi w wersji stromej dla kroA100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroA_steepest_corners}
+\caption{Zamiana krawędzi w wersji stromej dla kroA100}
+\end{figure}
+
+\subsubsection{Zamiana krawędzi w wersji zachłannej dla kroA100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroA_greedy_corners}
+\caption{Zamiana krawędzi w wersji zachłannej dla kroA100}
+\end{figure}
+
+\subsubsection{Zamiana wierzchołków w wersji stromej dla kroB100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroB_steepest_points}
+\caption{Zamiana wierzchołków w wersji stromej dla kroB100}
+\end{figure}
+
+\subsubsection{Zamiana wierzchołków w wersji zachłannej dla kroB100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroB_greedy_points}
+\caption{Zamiana wierzchołków w wersji zachłannej dla kroB100}
+\end{figure}
+
+\subsubsection{Zamiana krawędzi w wersji stromej dla kroB100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroB_steepest_corners}
+\caption{Zamiana krawędzi w wersji stromej dla kroB100}
+\end{figure}
+
+\subsubsection{Zamiana krawędzi w wersji zachłannej dla kroB100}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab2/kroB_greedy_corners}
+\caption{Zamiana krawędzi w wersji zachłannej dla kroB100}
+\end{figure}
+
+\subsection{Wnioski}
+
+Z wymienionych wyżej pomiarów można wywnioskować, że dla podanych warunków problemu zamiana kolejności wierzchołków jest lepsza od wymiany wierzchołków w rozwiązaniu na wierzchołki poza rozwiązaniem. Moża również zaobserwować, że wersja zachłanna dla zamiany wierzchołków na wierzchołki poza rozwiązaniem daje średnio lepsze wyniki od wersji stromej. Dla zamiany kolejności wierzchołków rozwiązania wyniki są odwrotne - wersja stroma daje średnio lepsze rezultaty od wersji zachłannej.
+
+\section{Zadanie 1}
+
+\subsection{Opis zadania}
 
 \paragraph{}
 Rozważany problem to zmodyfikowany problem komiwojażera. Dany jest zbiór wierzchołków i macierz odległości pomiędzy każdą parą wierzchołków. Celem zadania jest znalezienie najkrótszej ścieżki zamkniętej przechodzącą przez 50\% wszystkich wierzchołków (w przypadku nieparzystej liczby wierzchołków liczba jest zaokrąglana w górę).
 
-\section{Opis zaimplementowanych algorytmów}
+\subsection{Opis zaimplementowanych algorytmów}
 
-\subsection{Algorytm zachłanny greedy cycle}
+\subsubsection{Algorytm zachłanny greedy cycle}
 
 \begin{lstlisting}
 Wybierz pierwszy punkt.
@@ -71,7 +268,7 @@ Jeżeli nie dodałeś wszystkich punktów:
 	Dodaj znaleziony najlepszy punkt w wybranej krawędzi do cyklu.
 \end{lstlisting}
 
-\subsection{Algorytm z żalem oparty o 1-żal}
+\subsubsection{Algorytm z żalem oparty o 1-żal}
 
 \begin{lstlisting}
 Wybierz pierwszy punkt.
@@ -86,9 +283,9 @@ Jeżeli nie dodałeś wszystkich punktów:
 	Dodaj znalezione rozwiązanie z największym żalem do cyklu.
 \end{lstlisting}
 
-\section{Wyniki pomiarów}
+\subsection{Wyniki pomiarów}
 
-\subsection{Algorytm zachłanny dla problemu kroA100}
+\subsubsection{Algorytm zachłanny dla problemu kroA100}
 
 \begin{center}
 	\begin{tabular}{ l | l }
@@ -100,7 +297,7 @@ Jeżeli nie dodałeś wszystkich punktów:
 	\end{tabular}
 \end{center}
 
-\subsection{Algorytm oparty o żal dla problemu kroA100}
+\subsubsection{Algorytm oparty o żal dla problemu kroA100}
 
 \begin{center}
 	\begin{tabular}{ l | l }
@@ -112,7 +309,7 @@ Jeżeli nie dodałeś wszystkich punktów:
 	\end{tabular}
 \end{center}
 
-\subsection{Algorytm zachłanny dla problemu kroB100}
+\subsubsection{Algorytm zachłanny dla problemu kroB100}
 
 \begin{center}
 	\begin{tabular}{ l | l }
@@ -124,7 +321,7 @@ Jeżeli nie dodałeś wszystkich punktów:
 	\end{tabular}
 \end{center}
 
-\subsection{Algorytm oparty o żal dla problemu kroB100}
+\subsubsection{Algorytm oparty o żal dla problemu kroB100}
 
 \begin{center}
 	\begin{tabular}{ l | l }
@@ -136,43 +333,43 @@ Jeżeli nie dodałeś wszystkich punktów:
 	\end{tabular}
 \end{center}
 
-\section{Wizualizacje najlepszych rozwiązań}
+\subsection{Wizualizacje najlepszych rozwiązań}
 
-\subsection{Algorytm zachłanny dla problemu kroA100}
+\subsubsection{Algorytm zachłanny dla problemu kroA100}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{kroA_greedy}
+\includegraphics[width=\textwidth]{lab1/kroA_greedy}
 \caption{Algorytm zachłanny dla problemu kroA100}
 \end{figure}
 
-\subsection{Algorytm oparty o żal dla problemu kroA100}
+\subsubsection{Algorytm oparty o żal dla problemu kroA100}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{kroA_regret}
+\includegraphics[width=\textwidth]{lab1/kroA_regret}
 \caption{Algorytm oparty o żal dla problemu kroA100}
 \end{figure}
 
-\subsection{Algorytm zachłanny dla problemu kroB100}
+\subsubsection{Algorytm zachłanny dla problemu kroB100}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{kroB_greedy}
+\includegraphics[width=\textwidth]{lab1/kroB_greedy}
 \caption{Algorytm zachłanny dla problemu kroB100}
 \end{figure}
 
-\subsection{Algorytm oparty o żal dla problemu kroB100}
+\subsubsection{Algorytm oparty o żal dla problemu kroB100}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{kroB_regret}
+\includegraphics[width=\textwidth]{lab1/kroB_regret}
 \caption{Algorytm oparty o żal dla problemu kroB100}
 \end{figure}
 
-\section{Wnioski}
+\subsection{Wnioski}
 \paragraph{}
-Z wymienionych wyżej pomiarów można wywnioskoważ, że dla podanych warunków problemu (odwiedzanie połowy punktów), algorytm zachłanny radzi sobie lepiej od algorytmu opartego o żal (cykl, który generuje ma mniejszą długość). Przeprowadzono również testy dla przypadku, gdy oba te algorytmy uruchomione zostaną dla wszystkich punktów. Wtedy wyniki są odmienne, algorytm z żalem okazuje się lepszy od algorytmu zachłannego. Jest to spowodowane tym, że dla warunków zadania z odwiedzeniem połowy punktów algorytm z żalem czasami dodaje punkty, które mają duży żal, a w ogóle nie powinny zostać dodane do cyklu z powodu dużego kosztu ich dodania. Gdy odwiedzone mają być wszystkie punkty, koszt dodania punktu nie ma takiego znaczenia, ponieważ prędzej lub później i tak każdy punkt będzie musiał zostać dodany. 
+Z wymienionych wyżej pomiarów można wywnioskować, że dla podanych warunków problemu (odwiedzanie połowy punktów), algorytm zachłanny radzi sobie lepiej od algorytmu opartego o żal (cykl, który generuje ma mniejszą długość). Przeprowadzono również testy dla przypadku, gdy oba te algorytmy uruchomione zostaną dla wszystkich punktów. Wtedy wyniki są odmienne, algorytm z żalem okazuje się lepszy od algorytmu zachłannego. Jest to spowodowane tym, że dla warunków zadania z odwiedzeniem połowy punktów algorytm z żalem czasami dodaje punkty, które mają duży żal, a w ogóle nie powinny zostać dodane do cyklu z powodu dużego kosztu ich dodania. Gdy odwiedzone mają być wszystkie punkty, koszt dodania punktu nie ma takiego znaczenia, ponieważ prędzej lub później i tak każdy punkt będzie musiał zostać dodany.
 
 \section{Kod programu}
 \paragraph{}
