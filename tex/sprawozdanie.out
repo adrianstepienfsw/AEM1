@@ -5,31 +5,32 @@
 \BOOKMARK [3][-]{subsubsection.1.2.2}{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany wierzcho\233k\363w}{subsection.1.2}% 5
 \BOOKMARK [3][-]{subsubsection.1.2.3}{Algorytm lokalnego przeszukiwania w wersji zach\233annej dla zamiany krawedzi}{subsection.1.2}% 6
 \BOOKMARK [3][-]{subsubsection.1.2.4}{Algorytm lokalnego przeszukiwania w wersji stromej dla zamiany krawedzi}{subsection.1.2}% 7
-\BOOKMARK [2][-]{subsection.1.3}{Wyniki pomiar\363w}{section.1}% 8
-\BOOKMARK [2][-]{subsection.1.4}{Wizualizacje najlepszych rozwiazan}{section.1}% 9
-\BOOKMARK [3][-]{subsubsection.1.4.1}{Zamiana wierzcho\233k\363w w wersji stromej dla kroA100}{subsection.1.4}% 10
-\BOOKMARK [3][-]{subsubsection.1.4.2}{Zamiana wierzcho\233k\363w w wersji zach\233annej dla kroA100}{subsection.1.4}% 11
-\BOOKMARK [3][-]{subsubsection.1.4.3}{Zamiana krawedzi w wersji stromej dla kroA100}{subsection.1.4}% 12
-\BOOKMARK [3][-]{subsubsection.1.4.4}{Zamiana krawedzi w wersji zach\233annej dla kroA100}{subsection.1.4}% 13
-\BOOKMARK [3][-]{subsubsection.1.4.5}{Zamiana wierzcho\233k\363w w wersji stromej dla kroB100}{subsection.1.4}% 14
-\BOOKMARK [3][-]{subsubsection.1.4.6}{Zamiana wierzcho\233k\363w w wersji zach\233annej dla kroB100}{subsection.1.4}% 15
-\BOOKMARK [3][-]{subsubsection.1.4.7}{Zamiana krawedzi w wersji stromej dla kroB100}{subsection.1.4}% 16
-\BOOKMARK [3][-]{subsubsection.1.4.8}{Zamiana krawedzi w wersji zach\233annej dla kroB100}{subsection.1.4}% 17
-\BOOKMARK [2][-]{subsection.1.5}{Wnioski}{section.1}% 18
-\BOOKMARK [1][-]{section.2}{Zadanie 1}{}% 19
-\BOOKMARK [2][-]{subsection.2.1}{Opis zadania}{section.2}% 20
-\BOOKMARK [2][-]{subsection.2.2}{Opis zaimplementowanych algorytm\363w}{section.2}% 21
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Algorytm zach\233anny greedy cycle}{subsection.2.2}% 22
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Algorytm z zalem oparty o 1-zal}{subsection.2.2}% 23
-\BOOKMARK [2][-]{subsection.2.3}{Wyniki pomiar\363w}{section.2}% 24
-\BOOKMARK [3][-]{subsubsection.2.3.1}{Algorytm zach\233anny dla problemu kroA100}{subsection.2.3}% 25
-\BOOKMARK [3][-]{subsubsection.2.3.2}{Algorytm oparty o zal dla problemu kroA100}{subsection.2.3}% 26
-\BOOKMARK [3][-]{subsubsection.2.3.3}{Algorytm zach\233anny dla problemu kroB100}{subsection.2.3}% 27
-\BOOKMARK [3][-]{subsubsection.2.3.4}{Algorytm oparty o zal dla problemu kroB100}{subsection.2.3}% 28
-\BOOKMARK [2][-]{subsection.2.4}{Wizualizacje najlepszych rozwiazan}{section.2}% 29
-\BOOKMARK [3][-]{subsubsection.2.4.1}{Algorytm zach\233anny dla problemu kroA100}{subsection.2.4}% 30
-\BOOKMARK [3][-]{subsubsection.2.4.2}{Algorytm oparty o zal dla problemu kroA100}{subsection.2.4}% 31
-\BOOKMARK [3][-]{subsubsection.2.4.3}{Algorytm zach\233anny dla problemu kroB100}{subsection.2.4}% 32
-\BOOKMARK [3][-]{subsubsection.2.4.4}{Algorytm oparty o zal dla problemu kroB100}{subsection.2.4}% 33
-\BOOKMARK [2][-]{subsection.2.5}{Wnioski}{section.2}% 34
-\BOOKMARK [1][-]{section.3}{Kod programu}{}% 35
+\BOOKMARK [3][-]{subsubsection.1.2.5}{Spos\363b randomizacji kolejnosci przegladania}{subsection.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.3}{Wyniki pomiar\363w}{section.1}% 9
+\BOOKMARK [2][-]{subsection.1.4}{Wizualizacje najlepszych rozwiazan}{section.1}% 10
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Zamiana wierzcho\233k\363w w wersji stromej dla kroA100}{subsection.1.4}% 11
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Zamiana wierzcho\233k\363w w wersji zach\233annej dla kroA100}{subsection.1.4}% 12
+\BOOKMARK [3][-]{subsubsection.1.4.3}{Zamiana krawedzi w wersji stromej dla kroA100}{subsection.1.4}% 13
+\BOOKMARK [3][-]{subsubsection.1.4.4}{Zamiana krawedzi w wersji zach\233annej dla kroA100}{subsection.1.4}% 14
+\BOOKMARK [3][-]{subsubsection.1.4.5}{Zamiana wierzcho\233k\363w w wersji stromej dla kroB100}{subsection.1.4}% 15
+\BOOKMARK [3][-]{subsubsection.1.4.6}{Zamiana wierzcho\233k\363w w wersji zach\233annej dla kroB100}{subsection.1.4}% 16
+\BOOKMARK [3][-]{subsubsection.1.4.7}{Zamiana krawedzi w wersji stromej dla kroB100}{subsection.1.4}% 17
+\BOOKMARK [3][-]{subsubsection.1.4.8}{Zamiana krawedzi w wersji zach\233annej dla kroB100}{subsection.1.4}% 18
+\BOOKMARK [2][-]{subsection.1.5}{Wnioski}{section.1}% 19
+\BOOKMARK [1][-]{section.2}{Zadanie 1}{}% 20
+\BOOKMARK [2][-]{subsection.2.1}{Opis zadania}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.2}{Opis zaimplementowanych algorytm\363w}{section.2}% 22
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Algorytm zach\233anny greedy cycle}{subsection.2.2}% 23
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Algorytm z zalem oparty o 1-zal}{subsection.2.2}% 24
+\BOOKMARK [2][-]{subsection.2.3}{Wyniki pomiar\363w}{section.2}% 25
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Algorytm zach\233anny dla problemu kroA100}{subsection.2.3}% 26
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Algorytm oparty o zal dla problemu kroA100}{subsection.2.3}% 27
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Algorytm zach\233anny dla problemu kroB100}{subsection.2.3}% 28
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Algorytm oparty o zal dla problemu kroB100}{subsection.2.3}% 29
+\BOOKMARK [2][-]{subsection.2.4}{Wizualizacje najlepszych rozwiazan}{section.2}% 30
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Algorytm zach\233anny dla problemu kroA100}{subsection.2.4}% 31
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Algorytm oparty o zal dla problemu kroA100}{subsection.2.4}% 32
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Algorytm zach\233anny dla problemu kroB100}{subsection.2.4}% 33
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Algorytm oparty o zal dla problemu kroB100}{subsection.2.4}% 34
+\BOOKMARK [2][-]{subsection.2.5}{Wnioski}{section.2}% 35
+\BOOKMARK [1][-]{section.3}{Kod programu}{}% 36
