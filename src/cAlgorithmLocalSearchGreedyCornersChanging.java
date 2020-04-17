@@ -8,6 +8,10 @@ public class cAlgorithmLocalSearchGreedyCornersChanging extends cAlgorithm {
         super(_sample, _percentSmaplesToFinish);
     }
 
+    public cAlgorithmResult makeStep(){
+        return new cAlgorithmResult();
+    }
+
     @Override
     public void make(){
         System.out.println("Making Local Search Greedy (changing with corners) Algorithm for :"+sample.name);

@@ -3,6 +3,7 @@ import java.util.*;
 public abstract class cAlgorithm {
 
     public abstract void make();
+    public abstract cAlgorithmResult makeStep();
     cSample sample;
     List<cAlgorithm.cAlgorithmResult> listOfResults = new ArrayList<cAlgorithmGreedyCycle.cAlgorithmResult>();
     double averageDistance = -1;
@@ -65,6 +66,58 @@ public abstract class cAlgorithm {
             coordsOnPath.add(point);
         }
     }
+
+    public void testAlgorithm(int countStep, String description){
+        System.out.println(description);
+
+        List<Long> times = new ArrayList<>();
+
+        for(int x = 0; x<countStep; x++) {
+            long startTime = System.currentTimeMillis();
+
+            cAlgorithmResult resultStep = makeStep();
+
+            listOfResults.add(resultStep);
+            System.out.print(".");
+            long endTime = System.currentTimeMillis();
+            times.add(endTime-startTime);
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println(".");
+        double sum = 0;
+        for(cAlgorithm.cAlgorithmResult result : listOfResults){         //create statistics
+            if(minDistance == -1 || minDistance > result.distance){
+                minDistance = result.distance;
+                minDistanceIndex = listOfResults.indexOf(result);
+            }
+            if(maxDistance < result.distance){
+                maxDistance = result.distance;
+                maxDistanceIndex = listOfResults.indexOf(result);
+            }
+            sum += result.distance;
+        }
+
+        long timeSum = 0;
+        long minTime = times.get(0);
+        long maxTime = times.get(0);
+        for (long time:times){
+            timeSum += time;
+            if(time<minTime)
+                minTime = time;
+            if(time>maxTime)
+                maxTime = time;
+        }
+
+        averageDistance = sum/listOfResults.size();
+        System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
+        System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
+        System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
+        System.out.println("Average time executing one loop :"+(timeSum)/countStep+" ms");
+        System.out.println("Minimum time executing one loop :"+minTime+" ms");
+        System.out.println("Maximum time executing one loop :"+maxTime+" ms");
+        System.out.println();
+    }
+
 
     //calculating cost of inserting point to "result". Point which index in sample is "pointInSample". "edgeInResult" is
     //index of corner where will be insert point.

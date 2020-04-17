@@ -25,6 +25,10 @@ public class cAlgorithmRegretHeuristics extends cAlgorithm {
         }
     }
 
+    public cAlgorithmResult makeStep(){
+        return new cAlgorithmResult();
+    }
+
     public void make(){
         System.out.println("Making Regret Heuristics Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++) {

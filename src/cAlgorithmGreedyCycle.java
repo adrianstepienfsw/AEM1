@@ -11,6 +11,10 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
         super(_sample, _percentSmaplesToFinish);
     }
 
+    public cAlgorithmResult makeStep(){
+        return new cAlgorithmResult();
+    }
+
     public void make(){
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++) {

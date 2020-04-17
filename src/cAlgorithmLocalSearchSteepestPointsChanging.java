@@ -7,6 +7,10 @@ public class cAlgorithmLocalSearchSteepestPointsChanging extends cAlgorithm {
         super(_sample, _percentSmaplesToFinish);
     }
 
+    public cAlgorithmResult makeStep(){
+        return new cAlgorithmResult();
+    }
+
     @Override
     public void make(){
         System.out.println("Making Local Search Steepest (changing with points) Algorithm for :"+sample.name);

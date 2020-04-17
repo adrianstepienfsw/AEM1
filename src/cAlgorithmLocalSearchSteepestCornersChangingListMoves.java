@@ -2,10 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class cAlgorithmLocalSearchSteepestCornersChanging extends cAlgorithm {
+public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgorithm {
 
-    public cAlgorithmLocalSearchSteepestCornersChanging(cSample _sample, float _percentSmaplesToFinish){
+    public cAlgorithmLocalSearchSteepestCornersChangingListMoves(cSample _sample, float _percentSmaplesToFinish){
         super(_sample, _percentSmaplesToFinish);
+    }
+
+    enum enumMoveType {
+        cornerChange, pointOuterInnerChange, pointInnerChange;
+    }
+
+
+    class cMove{
+        List<Integer> object1 = new ArrayList<Integer>();
+        List<Integer> object2 = new ArrayList<Integer>();
+
+        enumMoveType moveType;
+
+        public cMove(List<Integer> _object1, List<Integer> _object2, enumMoveType _moveType){
+            object1 = _object1;
+            object2 = _object2;
+            moveType = _moveType;
+        }
     }
 
     public void make(){
