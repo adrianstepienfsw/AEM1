@@ -442,6 +442,7 @@ public abstract class cAlgorithm {
         return result;
     }
 
+
     //generate list of "count" Integers from "list"
     public List<Integer> makeRandomSeriesOnlyFromList(int count, List<Integer> list) {
         List<Integer> x = makeRandomSeries(list.size(), list.size());
