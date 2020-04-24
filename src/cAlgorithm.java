@@ -376,6 +376,7 @@ public abstract class cAlgorithm {
     public cAlgorithmResult makeRandomResult(int count) {
         cAlgorithmResult result = new cAlgorithmResult();
         Random randomGenerator = new Random();
+        //randomGenerator.setSeed(10);
 
         while (result.coordsOnPath.size() < count) {
             int random = (int) Math.floor(randomGenerator.nextFloat() * (sample.coordList.size() - result.coordsOnPath.size()));
@@ -397,6 +398,7 @@ public abstract class cAlgorithm {
     public List<Integer> makeRandomSeries(int count, int threshold) {
         List<Integer> result = new ArrayList<>();
         Random randomGenerator = new Random();
+        //randomGenerator.setSeed(10);
 
         while (result.size() < count) {
             int random = (int) Math.floor(randomGenerator.nextFloat() * (threshold - result.size()));
@@ -418,6 +420,7 @@ public abstract class cAlgorithm {
     public List<Integer> makeRandomSeriesExcludingList(int count, int threshold, List<Integer> list) {
         List<Integer> result = new ArrayList<>();
         Random randomGenerator = new Random();
+        //randomGenerator.setSeed(10);
 
         while (result.size() < count) {
             int random = (int) Math.floor(randomGenerator.nextFloat() * (threshold - result.size() - list.size()));

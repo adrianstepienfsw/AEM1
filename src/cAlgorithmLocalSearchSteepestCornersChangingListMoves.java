@@ -75,8 +75,8 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                     }
                     break;
                 case cornerChange:
-                    for(int pointInResult1: actualResult.coordsOnPath.subList(0, resultSize - 3)){
-                        for(int pointInResult2: actualResult.coordsOnPath.subList(actualResult.coordsOnPath.indexOf(pointInResult1)+2, resultSize-1)){
+                    for(int pointInResult1: actualResult.coordsOnPath.subList(0, resultSize - 2)){
+                        for(int pointInResult2: actualResult.coordsOnPath.subList(actualResult.coordsOnPath.indexOf(pointInResult1)+2, resultSize)){
                             int delta = calculateDeltaToCorners(actualResult.coordsOnPath.indexOf(pointInResult1), actualResult.coordsOnPath.indexOf(pointInResult2), actualResult);
                             if(delta<0){
                                 listOfMoves.add(new cMove(Arrays.asList(pointInResult1,
@@ -134,12 +134,12 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                     int indexFirstOfSecondTwo = result.coordsOnPath.indexOf(move.object2.get(0));
                     int indexSecondOfFirstTwo = result.coordsOnPath.indexOf(move.object1.get(1));
                     int indexSecondOfSecondTwo = result.coordsOnPath.indexOf(move.object2.get(1));
-                    if(indexFirstOfFirstTwo>indexSecondOfFirstTwo){
+                    if((indexFirstOfFirstTwo>indexSecondOfFirstTwo) && (indexFirstOfFirstTwo!=resultSize-1)){
                         int temp = indexFirstOfFirstTwo;
                         indexFirstOfFirstTwo = indexSecondOfFirstTwo;
                         indexSecondOfFirstTwo = temp;
                     }
-                    if(indexFirstOfSecondTwo>indexSecondOfSecondTwo){
+                    if((indexFirstOfSecondTwo>indexSecondOfSecondTwo) && (indexFirstOfSecondTwo!=resultSize-1)){
                         int temp = indexFirstOfSecondTwo;
                         indexFirstOfSecondTwo = indexSecondOfSecondTwo;
                         indexSecondOfSecondTwo = temp;
@@ -194,6 +194,14 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                         }
                     }
                 }
+                for (int point : result.coordsOnPath) {
+                    int delta = calculateDelta(result.coordsOnPath.indexOf(point), lastMove.object1.get(1), result);
+                    if (delta < 0) {
+                        listOfMoves.add(new cMove(Arrays.asList(result.coordsOnPath.get((result.coordsOnPath.indexOf(point) - 1 + resultSize) % resultSize),
+                                result.coordsOnPath.get((result.coordsOnPath.indexOf(point))), result.coordsOnPath.get((result.coordsOnPath.indexOf(point) + 1 + resultSize) % resultSize)),
+                                Arrays.asList(lastMove.object1.get(1)), enumMoveType.pointOuterInnerChange, delta, "1"));
+                    }
+                }
                 //adding cornerChange moves
                 for(int newPoint : Arrays.asList(lastMove.object2.get(0), result.coordsOnPath.get((result.coordsOnPath.indexOf(lastMove.object2.get(0))-1+resultSize)%resultSize))) {
                     for (int point : result.coordsOnPath) {
@@ -222,7 +230,7 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                     }
                 }
                 //adding cornerChange moves
-                for(int newPoint : lastMove.object2) {
+                /*for(int newPoint : lastMove.object2) {
                     for (int point : result.coordsOnPath) {
                         if ((Math.abs(result.coordsOnPath.indexOf(point) - result.coordsOnPath.indexOf(newPoint)) != (resultSize - 1))
                                 && (Math.abs(result.coordsOnPath.indexOf(point) - result.coordsOnPath.indexOf(newPoint)) > 1)) {
@@ -231,6 +239,17 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                                 listOfMoves.add(new cMove(Arrays.asList(newPoint, result.coordsOnPath.get((result.coordsOnPath.indexOf(newPoint) + 1 + resultSize) % resultSize)),
                                         Arrays.asList(point, result.coordsOnPath.get((result.coordsOnPath.indexOf(point) + 1 + resultSize) % resultSize)), enumMoveType.cornerChange, delta, "4"));
                             }
+                        }
+                    }
+                }*/
+                for(int pointInResult1: result.coordsOnPath.subList(0, resultSize - 2)){
+                    for(int pointInResult2: result.coordsOnPath.subList(result.coordsOnPath.indexOf(pointInResult1)+2, resultSize)){
+                        int delta = calculateDeltaToCorners(result.coordsOnPath.indexOf(pointInResult1), result.coordsOnPath.indexOf(pointInResult2), result);
+                        if(delta<0){
+                            listOfMoves.add(new cMove(Arrays.asList(pointInResult1,
+                                    result.coordsOnPath.get((result.coordsOnPath.indexOf(pointInResult1)+1)%resultSize)),
+                                    Arrays.asList(pointInResult2,
+                                            result.coordsOnPath.get((result.coordsOnPath.indexOf(pointInResult2)+1)%resultSize)),enumMoveType.cornerChange, delta, "cornerChangenewsall"));
                         }
                     }
                 }
@@ -258,6 +277,7 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
 
                 /*List<cMove> list = generateAllPosibleMoves(randomResult, Arrays.asList(enumMoveType.cornerChange, enumMoveType.pointOuterInnerChange));
 
+
                 for (cMove move : list){
                     boolean is = false;
                     for (cMove move1 : listOfMoves){
@@ -276,14 +296,20 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                                     break;
                                 }
                             }else{
-                                is = true;
-                                break;
+                                if(move1.object1.contains(move.object1.get(0))
+                                        && move1.object1.contains(move.object1.get(2))
+                                        && move1.object1.get(1) == move.object1.get(1)
+                                        && move1.object2.get(0) == move.object2.get(0)
+                                        && move1.delta==move.delta){
+                                    is = true;
+                                    break;
+                                }
                             }
                         }
                     }
                     if(!is){
-                        //System.out.println("Błąd!");
-                        //System.out.println(list.indexOf(move));
+                        System.out.println("Błąd!");
+                        System.out.println(list.indexOf(move));
                     }
                 }*/
                 cPair ret = checkMovesAndMove(randomResult, listOfMoves);
