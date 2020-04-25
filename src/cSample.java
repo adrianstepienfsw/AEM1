@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -12,6 +13,7 @@ public class cSample extends Object {
 
     public List<cCoords> coordList = new ArrayList<cCoords>();
     public long distanceMartix[][];
+    public List<List<Integer>> nearestPointsList = new ArrayList<>();
     public String name;
     public int mapWidth = 0;
     public int mapHeight = 0;
@@ -60,6 +62,25 @@ public class cSample extends Object {
             for(cCoords point2: coordList) {
                 distanceMartix[coordList.indexOf(point1)][coordList.indexOf(point2)] = Math.round(Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2)));
             }
+        }
+        int i = 0;
+        for (long[] distances: distanceMartix) {
+            long[] distancesCopy = distances.clone();
+            Arrays.sort(distancesCopy);
+            List<Integer> list = new ArrayList<>();
+            long lastL = 0;
+            for (long l : distancesCopy) {
+                int x = 0;
+                for (long distance : distances) {
+                    if((distance==l) && (distance!=0) && (l!=lastL)){
+                        list.add(x);
+                    }
+                    x++;
+                }
+                lastL = l;
+            }
+            nearestPointsList.add(list);
+            i++;
         }
     }
 

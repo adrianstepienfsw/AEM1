@@ -29,6 +29,8 @@ public class cTest {
 
         cAlgorithmLocalSearchSteepestCornersChangingListMoves localSearchSteepestCornersListMovesSample1 = new cAlgorithmLocalSearchSteepestCornersChangingListMoves(sample1, 0.5f);
         cAlgorithmLocalSearchSteepestCornersChangingListMoves localSearchSteepestCornersListMovesSample2 = new cAlgorithmLocalSearchSteepestCornersChangingListMoves(sample2, 0.5f);
+        cAlgorithmLocalSearchSteepestCornersChangingCandidatMove localSearchSteepestCornersCandidatMovesSample1 = new cAlgorithmLocalSearchSteepestCornersChangingCandidatMove(sample1, 0.5f);
+        cAlgorithmLocalSearchSteepestCornersChangingCandidatMove localSearchSteepestCornersCandidatMovesSample2 = new cAlgorithmLocalSearchSteepestCornersChangingCandidatMove(sample2, 0.5f);
 
         //greedyCycleSmaple1.make();
         //greedyCycleSmaple2.make();
@@ -46,6 +48,8 @@ public class cTest {
 
         localSearchSteepestCornersListMovesSample1.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using List Moves from previous step for :"+sample1.name);
         localSearchSteepestCornersListMovesSample2.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using List Moves from previous step for :"+sample2.name);
+        localSearchSteepestCornersCandidatMovesSample1.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using Candidat Moves from previous step for :"+sample1.name);
+        localSearchSteepestCornersCandidatMovesSample2.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using Candidat Moves from previous step for :"+sample2.name);
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -65,6 +69,8 @@ public class cTest {
 
                 new cMyFrame(sample1,  localSearchSteepestCornersListMovesSample1.listOfResults.get(localSearchSteepestCornersListMovesSample1.minDistanceIndex), localSearchSteepestCornersListMovesSample1.getClass().getName());
                 new cMyFrame(sample2,  localSearchSteepestCornersListMovesSample2.listOfResults.get(localSearchSteepestCornersListMovesSample2.minDistanceIndex), localSearchSteepestCornersListMovesSample2.getClass().getName());
+                new cMyFrame(sample1,  localSearchSteepestCornersCandidatMovesSample1.listOfResults.get(localSearchSteepestCornersCandidatMovesSample1.minDistanceIndex), localSearchSteepestCornersCandidatMovesSample1.getClass().getName());
+                new cMyFrame(sample2,  localSearchSteepestCornersCandidatMovesSample2.listOfResults.get(localSearchSteepestCornersCandidatMovesSample2.minDistanceIndex), localSearchSteepestCornersCandidatMovesSample2.getClass().getName());
             }
         });
     }
