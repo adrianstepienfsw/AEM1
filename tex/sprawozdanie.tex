@@ -51,6 +51,163 @@
 
 \maketitle
 
+\section{Zadanie 3}
+
+\subsection{Opis zadania}
+
+Zadanie polega na poprawie efektywności czasowej lokalnego przeszukiwania w wersji stromej z ruchem wymiany krawędzi.
+
+\subsection{Opis zaimplementowanych algorytmów}
+
+\subsubsection{Algorytm wykorzystania ocen ruchów z poprzednich iteracji z uporządkowaną listą ruchów}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Wygeneruj listę ruchów.
+Powtarzaj:
+    Sprawdź listę ruchów:
+        Dla każdego ruchu z listy ruchów:
+            Jeżeli typ ruchu to zamiana punktów:
+                Weź trzy punkty z rozwiązania.
+                Jeżeli wszystkie trzy punkty istnieją oraz punkt spoza rozwiązania rzeczywiście jest poza rozwiązaniem:
+                    Jeżeli pierwszy i drugi punkt z object1 są sąsiadami oraz drugi i trzeci punkt z object1 są sąsiadami:
+                        Oblicz dystans aktualnego rozwiązania.
+                        Dodaj punkty z aktualnego rozwiązania do listy.
+                        Zamień środkowy punkt z trójki punktów z punktem spoza rozwiązania.
+                        Oblicz dystans rozwiązania po zamianie punktów.
+                        Jeżeli różnica dystansów nie jest równa delcie to wyrzuć błąd.
+                        Zapisz ruch jako wykonany ruch.
+                        Dodaj ruch co listy ruchów do usunięcia.
+                    W przeciwnym wypadku:
+                        Dodaj ruch co listy ruchów do usunięcia.
+                W przeciwnym wypadku:
+                    Dodaj ruch co listy ruchów do usunięcia.
+            W przeciwnym wypadku dla zamiany krawędzi:
+                Weź punkty pierwszej krawędzi i punkty drugiej krawędzi.
+                Jeżeli indeks pierwszego punktu z pierwszej krawędzi jest większy od indeksu drugiego punktu i pierwszy punkt nie jest ostatnim punktem, to zamień te punkty ze sobą.
+                Jeżeli indeks pierwszego punktu z drugiej krawędzi jest większy od indeksu drugiego punktu i pierwszy punkt nie jest ostatnim punktem, to zamień te punkty ze sobą.
+                Jeżeli pierwszy ruch z pierwszej pary oraz pierwszy ruch z drugiej pary istnieją:
+                    Jeżeli następny punkt względem pierwszego punktu z pierwszej krawędzi to drugi punkt z pierwszej krawędzi oraz następny punkt względem pierwszego punktu z drugiej krawędzi to drugi punkt z drugiej krawędzi:
+                        Oblicz dystans aktualnego rozwiązania.
+                        Dodaj punkty z aktualnego rozwiązania do listy.
+                        Zamień krawędzie ze sobą.
+                        Oblicz dystans rozwiązania po zamianie krawędzi.
+                        Jeżeli różnica dystansów nie jest równa delcie to wyrzuć błąd.
+                        Zapisz ruch jako wykonany ruch.
+                        Dodaj ruch co listy ruchów do usunięcia.
+                    W przeciwnym wypadku:
+                        Dodaj ruch co listy ruchów do usunięcia.
+                W przeciwnym wypadku:
+                    Dodaj ruch co listy ruchów do usunięcia.
+        Usuń z listy ruchów te ruchy, które zostały dodane do listy ruchów do usunięcia.
+        Jeżeli wykonano ruch, to dodaj wykonany ruch do listy
+    Zaktualizuj rozwiązanie.
+    Zaktualizuj listę ruchów.
+    Dodaj ruch do listy poprzednio wykonanych ruchów.
+    Przerwij zewnętrzną pętlę jeżeli lista ruchów jest pusta.
+\end{lstlisting}
+
+\subsubsection{Algorytm ruchów kandydackich}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Powtarzaj:
+    Wygeneruj ruchy kandydackie:
+        Znajdź punkty znajdujące się poza rozwiązaniem.
+        Dla każdego typu ruchu:
+            Jeżeli typ ruchu to zamiana punktów:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla każdego punktu poza rozwiązaniem:
+                        Oblicz deltę dla zamianych tych dwóch punktów (punktu w rozwiązaniu i punktu poza rozwiązaniem).
+                        Jeżeli delta jest mniejsza od zera, to dodaj ten ruch do listy ruchów kandydackich.
+            W przeciwnym wypadku dla zamiany krawędzi:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla najbliższych punktów tego punktu:
+                        Przerwij pętlę, jeżeli nie jest to jeden z pięciu najbliższych punktów.
+                        Przejdź do następnego najbliższego punktu, jeżeli punkt nie leży w aktualnym rozwiązaniu.
+                        Oblicz deltę dla zamiany krawędzi pomiędzy tymi dwoma punktami.
+                        Jeżeli delta jest mniejsza od zera, to dodaj ten ruch do listy ruchów kandydackich.
+        Posortuj wygenerowane ruchy kandydackie od najlepszego do najgorszego.
+    Jeżeli nie wygenerowano ruchów kandydackich, to przerwij zewnętrzną pętlę, w przeciwnym wypadku:
+        Jeżeli delta najlepszego punktu nie jest mniejsza od zera, to przerwij zewnętrzną pętlę, w przeciwnym wypadku:
+            Jeżeli typ najlepszego ruchu to pointOuterInnerChange:
+                W rozwiązaniu zamień punkty wskazane przez najlepszy kandydacki ruch.
+            W przeciwnym wypadku:
+                W rozwiązaniu zamień krawędzie wskazane przez najlepszy kandydacki ruch.
+
+\end{lstlisting}
+
+\subsection{Wyniki pomiarów}
+
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l | l | l | l }
+		\textbf{Pomiar} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} & \textbf{\makecell{Średni \\ czas [ms]}} & \textbf{\makecell{Minimalny \\ czas [ms]}} & \textbf{\makecell{Maksymalny \\ czas [ms]}} \\
+		\hline
+		\makecell{Lokalne przeszukiwanie \\ w wersji stromej \\ dla kroA200} & 17054.24 & 14433.00 & 19243.00 & 19400 & 16502 & 23334 \\
+		\makecell{Wykorzystanie ocen ruchów \\ z poprzednich iteracji \\ dla kroA200} & 16958.04 & 14813.00 & 19128.00 & 385 & 276 &  862 \\
+		\makecell{Ruchy kandydackie \\ dla kroA200} & 17149.35 & 15565.00 & 18977.00 & 489 & 396 & 746 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji stromej \\ dla kroB200} & 17114.17 & 14682.00 & 20310.00 & 18859 & 15488 & 22255 \\
+		\makecell{Wykorzystanie ocen ruchów \\ z poprzednich iteracji \\ dla kroB200} & 17077.72 & 15493.00 & 19104.00 & 374 & 302 &  467 \\
+		\makecell{Ruchy kandydackie \\ dla kroB200} & 17211.44 & 15896.00 & 18945.00 & 477 & 373 & 645 \\
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
+
+\subsection{Wizualizacje najlepszych rozwiązań}
+
+\subsubsection{Lokalne przeszukiwanie w wersji stromej dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroA_steepest_corners.png}
+\caption{Lokalne przeszukiwanie w wersji stromej dla kroA200}
+\end{figure}
+
+\subsubsection{Wykorzystanie ocen ruchów z poprzednich iteracji dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroA_list_moves.png}
+\caption{Wykorzystanie ocen ruchów z poprzednich iteracji dla kroA200}
+\end{figure}
+
+\subsubsection{Ruchy kandydackie dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroA_candidate_moves.png}
+\caption{Ruchy kandydackie dla kroA200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji stromej dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroB_steepest_corners.png}
+\caption{Lokalne przeszukiwanie w wersji stromej dla kroB200}
+\end{figure}
+
+\subsubsection{Wykorzystanie ocen ruchów z poprzednich iteracji dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroB_list_moves.png}
+\caption{Wykorzystanie ocen ruchów z poprzednich iteracji dla kroB200}
+\end{figure}
+
+\subsubsection{Ruchy kandydackie dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab3/kroB_candidate_moves.png}
+\caption{Ruchy kandydackie dla kroB200}
+\end{figure}
+
+\subsection{Wnioski}
+
+[DO NAPISANIA]
+
 \section{Zadanie 2}
 
 \subsection{Opis zadania}

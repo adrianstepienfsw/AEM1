@@ -1,8 +1,6 @@
 import java.util.*;
 
-
 public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cAlgorithm {
-
     public cAlgorithmLocalSearchSteepestCornersChangingCandidatMove(cSample _sample, float _percentSmaplesToFinish){
         super(_sample, _percentSmaplesToFinish);
     }
@@ -10,8 +8,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
     enum enumMoveType {
         cornerChange, pointOuterInnerChange;
     }
-
-
 
     class cMove{
         List<Integer> object1 = new ArrayList<Integer>();
@@ -27,7 +23,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
             moveType = _moveType;
             delta = _delta;
             source = _source;
-
         }
 
         public int getDelta(){
@@ -35,9 +30,7 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
         }
     }
 
-    public void make(){
-
-    }
+    public void make(){ }
 
     public List<cMove> generateAllPosibleCandidatMoves(cAlgorithmResult actualResult, List<enumMoveType> typesOfMove){
         List<cMove> listOfMoves = new ArrayList<>();
@@ -48,7 +41,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
         int outsideResultSize = pointsOutOfResult.size();
 
         for (enumMoveType moveType : typesOfMove){
-
             switch(moveType){
                 case pointOuterInnerChange:
                     for(int pointInResult: actualResult.coordsOnPath){
@@ -82,7 +74,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
                     }
                     break;
             }
-
         }
 
         listOfMoves.sort(Comparator.comparing(cMove::getDelta));
@@ -90,20 +81,14 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
         return listOfMoves;
     }
 
-
-
     public cAlgorithmResult makeStep(){
-
         cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
 
         try {
-
-
             while (true) {
-
                 List<cMove> listOfMoves = generateAllPosibleCandidatMoves(randomResult, Arrays.asList(enumMoveType.cornerChange, enumMoveType.pointOuterInnerChange));
 
-                if(listOfMoves.size()>0) {
+                if (listOfMoves.size()>0) {
                     if (listOfMoves.get(0).delta < 0) {
                         if (listOfMoves.get(0).moveType == enumMoveType.pointOuterInnerChange) {
                             randomResult = changePoints(randomResult.coordsOnPath.indexOf(listOfMoves.get(0).object1.get(1)), listOfMoves.get(0).object2.get(0), randomResult);
@@ -112,15 +97,13 @@ public class cAlgorithmLocalSearchSteepestCornersChangingCandidatMove extends cA
                         }
                     } else
                         break;
-                }else
+                } else
                     break;
             }
-
         } catch (Throwable e) {
             e.printStackTrace();
         }
 
         return randomResult;
     }
-
 }

@@ -1,9 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.*;
 
-
 public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgorithm {
-
     public cAlgorithmLocalSearchSteepestCornersChangingListMoves(cSample _sample, float _percentSmaplesToFinish){
         super(_sample, _percentSmaplesToFinish);
     }
@@ -23,7 +21,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
         }
 
     }
-
 
     class cMove{
         List<Integer> object1 = new ArrayList<Integer>();
@@ -47,9 +44,7 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
         }
     }
 
-    public void make(){
-
-    }
+    public void make(){ }
 
     public List<cMove> generateAllPosibleMoves(cAlgorithmResult actualResult, List<enumMoveType> typesOfMove){
         List<cMove> listOfMoves = new ArrayList<>();
@@ -60,7 +55,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
         int outsideResultSize = pointsOutOfResult.size();
 
         for (enumMoveType moveType : typesOfMove){
-
             switch(moveType){
                 case pointOuterInnerChange:
                     for(int pointInResult: actualResult.coordsOnPath){
@@ -88,7 +82,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                     }
                     break;
             }
-
         }
 
         listOfMoves.sort(Comparator.comparing(cMove::getDelta));
@@ -229,19 +222,6 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
                         }
                     }
                 }
-                //adding cornerChange moves
-                /*for(int newPoint : lastMove.object2) {
-                    for (int point : result.coordsOnPath) {
-                        if ((Math.abs(result.coordsOnPath.indexOf(point) - result.coordsOnPath.indexOf(newPoint)) != (resultSize - 1))
-                                && (Math.abs(result.coordsOnPath.indexOf(point) - result.coordsOnPath.indexOf(newPoint)) > 1)) {
-                            int delta = calculateDeltaToCorners(result.coordsOnPath.indexOf(newPoint), result.coordsOnPath.indexOf(point), result);
-                            if (delta < 0) {
-                                listOfMoves.add(new cMove(Arrays.asList(newPoint, result.coordsOnPath.get((result.coordsOnPath.indexOf(newPoint) + 1 + resultSize) % resultSize)),
-                                        Arrays.asList(point, result.coordsOnPath.get((result.coordsOnPath.indexOf(point) + 1 + resultSize) % resultSize)), enumMoveType.cornerChange, delta, "4"));
-                            }
-                        }
-                    }
-                }*/
                 for(int pointInResult1: result.coordsOnPath.subList(0, resultSize - 2)){
                     for(int pointInResult2: result.coordsOnPath.subList(result.coordsOnPath.indexOf(pointInResult1)+2, resultSize)){
                         int delta = calculateDeltaToCorners(result.coordsOnPath.indexOf(pointInResult1), result.coordsOnPath.indexOf(pointInResult2), result);
@@ -261,57 +241,16 @@ public class cAlgorithmLocalSearchSteepestCornersChangingListMoves extends cAlgo
 
 
     public cAlgorithmResult makeStep(){
-
         cAlgorithmResult randomResult = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
-
 
         List<cMove> listOfMoves = new ArrayList<>();
 
         try {
-
             listOfMoves = generateAllPosibleMoves(randomResult, Arrays.asList(enumMoveType.pointOuterInnerChange, enumMoveType.cornerChange));
 
             List<cMove> prevMove = new ArrayList<>();
 
             while (true) {
-
-                /*List<cMove> list = generateAllPosibleMoves(randomResult, Arrays.asList(enumMoveType.cornerChange, enumMoveType.pointOuterInnerChange));
-
-
-                for (cMove move : list){
-                    boolean is = false;
-                    for (cMove move1 : listOfMoves){
-                        if(move.moveType == move1.moveType){
-                            if(move.moveType==enumMoveType.cornerChange){
-                                if(move1.object1.contains(move.object1.get(0))
-                                        && move1.object1.contains(move.object1.get(1))
-                                        && move1.delta==move.delta){
-                                    is = true;
-                                    break;
-                                }
-                                if(move1.object1.contains(move.object2.get(0))
-                                        && move1.object1.contains(move.object2.get(1))
-                                        && move1.delta==move.delta){
-                                    is = true;
-                                    break;
-                                }
-                            }else{
-                                if(move1.object1.contains(move.object1.get(0))
-                                        && move1.object1.contains(move.object1.get(2))
-                                        && move1.object1.get(1) == move.object1.get(1)
-                                        && move1.object2.get(0) == move.object2.get(0)
-                                        && move1.delta==move.delta){
-                                    is = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if(!is){
-                        System.out.println("Błąd!");
-                        System.out.println(list.indexOf(move));
-                    }
-                }*/
                 cPair ret = checkMovesAndMove(randomResult, listOfMoves);
                 randomResult = ret.result;
                 listOfMoves = ret.LM;
