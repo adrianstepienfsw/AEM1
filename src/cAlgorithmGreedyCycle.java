@@ -15,6 +15,31 @@ public class cAlgorithmGreedyCycle extends cAlgorithm {
         return new cAlgorithmResult();
     }
 
+    public cAlgorithmResult makeStepUsing(cAlgorithmResult result){
+
+        while (result.coordsOnPath.size() < Math.ceil((float) sample.coordList.size() * percentSmaplesToFinish)) {
+            double bestCostNext = -1;
+            int bestPointNext = -1;
+            int bestIndexForPointNext = -1;
+            outerloop:
+            for (int pointNext = 0; pointNext < sample.coordList.size(); pointNext++) {
+                for (int point : result.coordsOnPath) {            //checking if next point is on resultlist already
+                    if (point == pointNext) continue outerloop;
+                }
+                for (int indexForPointNext = 0; indexForPointNext < result.coordsOnPath.size(); indexForPointNext++) {
+                    int cost = calculateCost(pointNext, indexForPointNext, result);
+                    if ((bestCostNext == -1) || (bestCostNext > cost)) {
+                        bestPointNext = pointNext;
+                        bestCostNext = cost;
+                        bestIndexForPointNext = indexForPointNext;
+                    }
+                }
+            }
+            result.add(bestPointNext, bestIndexForPointNext+1);
+        }
+        return result;
+    }
+
     public void make(){
         System.out.println("Making Greedy Cycle Algorithm for :"+sample.name);
         for(int point1=0; point1<sample.coordList.size(); point1++) {

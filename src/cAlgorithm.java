@@ -12,6 +12,9 @@ public abstract class cAlgorithm {
     double minDistance = -1;
     int minDistanceIndex = -1;
     float percentSmaplesToFinish = 1;
+    long minTime = -1;
+    long maxTime = -1;
+    long averageTime = -1;
 
     public cAlgorithm(cSample _sample){
         sample = _sample;
@@ -65,9 +68,21 @@ public abstract class cAlgorithm {
         public void addWithoutCalculating(int point){
             coordsOnPath.add(point);
         }
+
+        public cAlgorithmResult clone(){
+            cAlgorithmResult returnResult = new cAlgorithmResult();
+            returnResult.distance = this.distance;
+            for (int cord :this.coordsOnPath) {
+                returnResult.coordsOnPath.add(cord);
+            }
+            return returnResult;
+        }
     }
 
+
     public void testAlgorithm(int countStep, String description){
+        System.out.println();
+        System.out.println();
         System.out.println(description);
 
         List<Long> times = new ArrayList<>();
@@ -77,10 +92,11 @@ public abstract class cAlgorithm {
 
             cAlgorithmResult resultStep = makeStep();
 
-            listOfResults.add(resultStep);
-            System.out.print(".");
             long endTime = System.currentTimeMillis();
             times.add(endTime-startTime);
+
+            listOfResults.add(resultStep);
+            System.out.print(".");
         }
         long endTime = System.currentTimeMillis();
         System.out.println(".");
@@ -98,8 +114,8 @@ public abstract class cAlgorithm {
         }
 
         long timeSum = 0;
-        long minTime = times.get(0);
-        long maxTime = times.get(0);
+        minTime = times.get(0);
+        maxTime = times.get(0);
         for (long time:times){
             timeSum += time;
             if(time<minTime)
@@ -108,14 +124,15 @@ public abstract class cAlgorithm {
                 maxTime = time;
         }
 
+        averageTime = timeSum/listOfResults.size();
         averageDistance = sum/listOfResults.size();
         System.out.println("Average of results is "+averageDistance+" for :"+sample.name);
         System.out.println("Minimum distance is "+minDistance+" for :"+sample.name);
         System.out.println("Maximum distance is "+maxDistance+" for :"+sample.name);
-        System.out.println("Average time executing one loop :"+(timeSum)/countStep+" ms");
+        System.out.println("Average time executing one loop :"+averageTime+" ms");
         System.out.println("Minimum time executing one loop :"+minTime+" ms");
         System.out.println("Maximum time executing one loop :"+maxTime+" ms");
-        System.out.println();
+
     }
 
 
