@@ -55,37 +55,41 @@
 
 \subsection{Opis zadania}
 
-Zadanie polega na implementacji trzech metod - multiple start local search, iterated local search, iterated local search.
+Zadanie polega na implementacji trzech metod - multiple start local search oraz 2 rodzajów iterated local search.
+
+\subsection{Wybór algorytmów}
+Wybrany przez nas typ lokalnego przeszukiwania to steepest, ponieważ ta wersja dawała najlepsze wyniki. Użyta została wersja bez usprawnień zmniejszających złożoność obliczeniową. Permutacja do algorytmu ISL1 polega na wymianie 10 losowych wierzchołków z rozwiązania na losowe 10 wierzchołków z poza rozwiązania.
+Zaś permutacja dla algorytmu ISL2 polega na usunięciu z rozwiązania 20 procent wierzchołków oraz uzupełnieniu rozwiązania algorytmem Greedy Cycle.
 
 \subsection{Opis zaimplementowanych algorytmów}
 
 \subsubsection{Multiple Start Local Search}
 
 \begin{lstlisting}
-Wygeneruj losowe rozwiązanie.
-Powtarzaj:
-    Wygeneruj listę możliwych ruchów:
-        Zainicjalizuj pustą listę zwracanych ruchów.
-        Wygeneruj punkty poza rozwiązaniem.
-        Dla każdego ruchu:
-            Jeżeli typ ruchu to zamiana punktów:
+Oznacz najlepsze rozwiązanie jako null.
+Wykonuj pętlę 100 razy:
+    Wygeneruj losowe rozwiązanie.
+    Powtarzaj:
+        Wygeneruj listę możliwych ruchów:
+            Generowanie ruchów wymiany wierzchołków zewnątrztrasowych:
                 Dla każdego punktu w rozwiązaniu:
                     Dla każdego punktu poza rozwiązaniem:
                         Oblicz deltę.
-                        Dodaj ruch do listy zwracanych ruchów.
-            W przeciwnym wypadku dla zamiany krawędzi:
-                Dla każdego punktu w rozwiązaniu:
-                    Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
+                        Dodaj ruch do listy ruchów.
+            Generowanie ruchów wymiany krawędzi:
+                Dla każdej krawędzi w rozwiązaniu:
+                    Dla każdej innej krawędzi w rozwiązaniu:
                         Oblicz deltę.
                         Dodaj ruch do listy zwracanych ruchów.
-        Posortuj listę zwracanych ruchów według obliczonej delty.
-    Wykonaj najlepszy ruch:
-        Jeżeli lista ruchów nie jest pusta:
-            Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
-                Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
-                W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
-    Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
-    Jeżeli rozwiązanie jest puste albo jest lepsze od aktualnego to wybierz znalezione rozwiązanie z najlepszym ruchem.
+            Posortuj listę zwracanych ruchów według obliczonej delty.
+        Wykonaj najlepszy ruch:
+            Jeżeli lista ruchów nie jest pusta:
+                Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
+                    Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
+                    W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
+        Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
+    Jeżeli aktualne rozwiązanie jest lepsze od najlepszego:
+    	Zapisz aktualne rozwiązanie jako najlepsze.
 \end{lstlisting}
 
 \subsubsection{Iterated Local Search 1}
@@ -94,32 +98,13 @@ Powtarzaj:
 Wygeneruj losowe rozwiązanie.
 Wykonaj lokalne przeszukiwanie.
 Powtarzaj dopóki nie osiągnięto określonego czasu:
-    Wykonaj perturbację:
+    Wykonaj perturbację i zapisz kopię rozwiązania po permutacji:
         Wylosuj 10 punktów do zamiany.
-        Zamień punkty z rozwiązania z wylosowanymi punktami.
-    Powtarzaj:
-        Wygeneruj listę możliwych ruchów:
-            Zainicjalizuj pustą listę zwracanych ruchów.
-            Wygeneruj punkty poza rozwiązaniem.
-            Dla każdego ruchu:
-                Jeżeli typ ruchu to zamiana punktów:
-                    Dla każdego punktu w rozwiązaniu:
-                        Dla każdego punktu poza rozwiązaniem:
-                            Oblicz deltę.
-                            Dodaj ruch do listy zwracanych ruchów.
-                W przeciwnym wypadku dla zamiany krawędzi:
-                    Dla każdego punktu w rozwiązaniu:
-                        Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
-                            Oblicz deltę.
-                            Dodaj ruch do listy zwracanych ruchów.
-            Posortuj listę zwracanych ruchów według obliczonej delty.
-        Wykonaj najlepszy ruch:
-            Jeżeli lista ruchów nie jest pusta:
-                Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
-                    Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
-                    W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
-        Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
-    Jeżeli rozwiązanie po wykonaniu perturbacji jest lepsze od aktualnego rozwiązania, to zapisz znalezione rozwiązanie jako aktualne rozwiązanie.
+        Zamień punkty z rozwiązania z wylosowanymi punktami z poza rozwiązania.
+        Zapisz kopię rozwiązania po permutacji
+    Wykonaj lokalne przeszukiwanie na rozwiązaniu po permutacji.
+    Jeżeli rozwiązanie po permutacji i lokalnym przeszukiwaniu jest lepsze niż rozwiązanie przed permutacją:
+    	Zapisz rozwiązanie po permutacji i lokalnym przeszukiwaniu jako aktualne rozwiązanie
 \end{lstlisting}
 
 \subsubsection{Iterated Local Search 2}
@@ -128,33 +113,13 @@ Powtarzaj dopóki nie osiągnięto określonego czasu:
 Wygeneruj losowe rozwiązanie.
 Wykonaj lokalne przeszukiwanie.
 Powtarzaj dopóki nie osiągnięto określonego czasu:
-    Wykonaj perturbację:
+    Wykonaj perturbację i zapisz kopię rozwiązania po permutacji:
         Usuń 20% punktów z rozwiązania.
-        Zamień punkty z rozwiązania z wylosowanymi punktami.
-        Napraw rozwiązanie za pomocą algorytmu Greedy Cycle.
-    Powtarzaj:
-        Wygeneruj listę możliwych ruchów:
-            Zainicjalizuj pustą listę zwracanych ruchów.
-            Wygeneruj punkty poza rozwiązaniem.
-            Dla każdego ruchu:
-                Jeżeli typ ruchu to zamiana punktów:
-                    Dla każdego punktu w rozwiązaniu:
-                        Dla każdego punktu poza rozwiązaniem:
-                            Oblicz deltę.
-                            Dodaj ruch do listy zwracanych ruchów.
-                W przeciwnym wypadku dla zamiany krawędzi:
-                    Dla każdego punktu w rozwiązaniu:
-                        Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
-                            Oblicz deltę.
-                            Dodaj ruch do listy zwracanych ruchów.
-            Posortuj listę zwracanych ruchów według obliczonej delty.
-        Wykonaj najlepszy ruch:
-            Jeżeli lista ruchów nie jest pusta:
-                Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
-                    Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
-                    W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
-        Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
-    Jeżeli rozwiązanie po wykonaniu perturbacji jest lepsze od aktualnego rozwiązania, to zapisz znalezione rozwiązanie jako aktualne rozwiązanie.
+        Napraw rozwiązanie za pomocą algorytmu Greedy Cycle
+        Zapisz kopię rozwiązania po permutacji
+    Wykonaj lokalne przeszukiwanie na rozwiązaniu po permutacji.
+    Jeżeli rozwiązanie po permutacji i lokalnym przeszukiwaniu jest lepsze niż rozwiązanie przed permutacją:
+    	Zapisz rozwiązanie po permutacji i lokalnym przeszukiwaniu jako aktualne rozwiązanie
 \end{lstlisting}
 
 \subsection{Wyniki pomiarów}
@@ -174,25 +139,20 @@ Powtarzaj dopóki nie osiągnięto określonego czasu:
 	\hspace*{-3.25cm}
 \end{center}
 
-ISL1:
-\begin{itemize}
-    \item Average number of LocalSearch Iterations 544.8 for :kroA200.tsp
-    \item Minimum number of LocalSearch Iterations 536 for :kroA200.tsp
-    \item Maximum number of LocalSearch Iterations 561 for :kroA200.tsp
-    \item Average number of LocalSearch Iterations 546.2 for :kroB200.tsp
-    \item Minimum number of LocalSearch Iterations 525 for :kroB200.tsp
-    \item Maximum number of LocalSearch Iterations 566 for :kroB200.tsp
-\end{itemize}
-
-ISL2:
-\begin{itemize}
-    \item Average number of LocalSearch Iterations 650.3 for :kroA200.tsp
-    \item Minimum number of LocalSearch Iterations 462 for :kroA200.tsp
-    \item Maximum number of LocalSearch Iterations 991 for :kroA200.tsp
-    \item Average number of LocalSearch Iterations 495.8 for :kroB200.tsp
-    \item Minimum number of LocalSearch Iterations 362 for :kroB200.tsp
-    \item Maximum number of LocalSearch Iterations 621 for :kroB200.tsp
-\end{itemize}
+Liczba iteracji lokalnego przeszukiwania dla ISL:
+    
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l }
+		\textbf{Algorytm} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} \\
+		\hline
+		\makecell{ISL1 \\ dla kroA200} & 544.8 & 536 & 561\\
+		\makecell{ISL1 \\ dla kroB200} & 546.2 & 525 & 566\\
+		\makecell{ISL2 \\ dla kroA200} & 650.3 & 462 & 991\\
+		\makecell{ISL2 \\ dla kroB200} & 495.8 & 362 & 621\\
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
 
 \subsection{Wizualizacje najlepszych rozwiązań}
 
