@@ -51,6 +51,201 @@
 
 \maketitle
 
+\section{Zadanie 4}
+
+\subsection{Opis zadania}
+
+Zadanie polega na implementacji trzech metod - multiple start local search, iterated local search, iterated local search.
+
+\subsection{Opis zaimplementowanych algorytmów}
+
+\subsubsection{Multiple Start Local Search}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Powtarzaj:
+    Wygeneruj listę możliwych ruchów:
+        Zainicjalizuj pustą listę zwracanych ruchów.
+        Wygeneruj punkty poza rozwiązaniem.
+        Dla każdego ruchu:
+            Jeżeli typ ruchu to zamiana punktów:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla każdego punktu poza rozwiązaniem:
+                        Oblicz deltę.
+                        Dodaj ruch do listy zwracanych ruchów.
+            W przeciwnym wypadku dla zamiany krawędzi:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
+                        Oblicz deltę.
+                        Dodaj ruch do listy zwracanych ruchów.
+        Posortuj listę zwracanych ruchów według obliczonej delty.
+    Wykonaj najlepszy ruch:
+        Jeżeli lista ruchów nie jest pusta:
+            Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
+                Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
+                W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
+    Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
+    Jeżeli rozwiązanie jest puste albo jest lepsze od aktualnego to wybierz znalezione rozwiązanie z najlepszym ruchem.
+\end{lstlisting}
+
+\subsubsection{Iterated Local Search 1}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Wykonaj lokalne przeszukiwanie.
+Powtarzaj dopóki nie osiągnięto określonego czasu:
+    Wykonaj perturbację:
+        Wylosuj 10 punktów do zamiany.
+        Zamień punkty z rozwiązania z wylosowanymi punktami.
+    Powtarzaj:
+        Wygeneruj listę możliwych ruchów:
+            Zainicjalizuj pustą listę zwracanych ruchów.
+            Wygeneruj punkty poza rozwiązaniem.
+            Dla każdego ruchu:
+                Jeżeli typ ruchu to zamiana punktów:
+                    Dla każdego punktu w rozwiązaniu:
+                        Dla każdego punktu poza rozwiązaniem:
+                            Oblicz deltę.
+                            Dodaj ruch do listy zwracanych ruchów.
+                W przeciwnym wypadku dla zamiany krawędzi:
+                    Dla każdego punktu w rozwiązaniu:
+                        Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
+                            Oblicz deltę.
+                            Dodaj ruch do listy zwracanych ruchów.
+            Posortuj listę zwracanych ruchów według obliczonej delty.
+        Wykonaj najlepszy ruch:
+            Jeżeli lista ruchów nie jest pusta:
+                Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
+                    Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
+                    W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
+        Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
+    Jeżeli rozwiązanie po wykonaniu perturbacji jest lepsze od aktualnego rozwiązania, to zapisz znalezione rozwiązanie jako aktualne rozwiązanie.
+\end{lstlisting}
+
+\subsubsection{Iterated Local Search 2}
+
+\begin{lstlisting}
+Wygeneruj losowe rozwiązanie.
+Wykonaj lokalne przeszukiwanie.
+Powtarzaj dopóki nie osiągnięto określonego czasu:
+    Wykonaj perturbację:
+        Usuń 20% punktów z rozwiązania.
+        Zamień punkty z rozwiązania z wylosowanymi punktami.
+        Napraw rozwiązanie za pomocą algorytmu Greedy Cycle.
+    Powtarzaj:
+        Wygeneruj listę możliwych ruchów:
+            Zainicjalizuj pustą listę zwracanych ruchów.
+            Wygeneruj punkty poza rozwiązaniem.
+            Dla każdego ruchu:
+                Jeżeli typ ruchu to zamiana punktów:
+                    Dla każdego punktu w rozwiązaniu:
+                        Dla każdego punktu poza rozwiązaniem:
+                            Oblicz deltę.
+                            Dodaj ruch do listy zwracanych ruchów.
+                W przeciwnym wypadku dla zamiany krawędzi:
+                    Dla każdego punktu w rozwiązaniu:
+                        Dla każdego punktu w rozwiązaniu poza punktem wybranym w otaczającej pętli:
+                            Oblicz deltę.
+                            Dodaj ruch do listy zwracanych ruchów.
+            Posortuj listę zwracanych ruchów według obliczonej delty.
+        Wykonaj najlepszy ruch:
+            Jeżeli lista ruchów nie jest pusta:
+                Jeżeli delta pierwszego ruchu z listy jest mniejsza od zera:
+                    Jeżeli typ ruchu to zamiana punktów, to zamień punkty ze sobą.
+                    W przeciwnym wypadku dla zamiany krawędzi zamień ze sobą krawędzie.
+        Jeżeli nie można wykonać najlepszego ruchu to przerwij pętlę.
+    Jeżeli rozwiązanie po wykonaniu perturbacji jest lepsze od aktualnego rozwiązania, to zapisz znalezione rozwiązanie jako aktualne rozwiązanie.
+\end{lstlisting}
+
+\subsection{Wyniki pomiarów}
+
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l | l | l | l }
+		\textbf{Pomiar} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} & \textbf{\makecell{Średni \\ czas [ms]}} & \textbf{\makecell{Minimalny \\ czas [ms]}} & \textbf{\makecell{Maksymalny \\ czas [ms]}} \\
+		\hline
+		\makecell{Lokalne przeszukiwanie \\ w wersji MSLS \\ dla kroA200} & 15137.5 & 14608.0 & 15476.0 & 126088 & 123303 & 129858 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji MSLS \\ dla kroB200} & 15339.5 & 14850.0 & 15748.0 & 125760 & 123343 & 129725 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ISL1 \\ dla kroA200} & 13339.9 & 12955.0 & 13567.0 & 126190 & 126095 & 126424 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ISL1 \\ dla kroB200} & 13546.5 & 13288.0 & 14187.0 & 125837 & 125768 & 126027 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ISL2 \\ dla kroA200} & 14329.2 & 13072.0 & 16294.0 & 126211 & 126126 & 126308 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ISL2 \\ dla kroB200} & 14554.5 & 13828.0 & 15429.0 & 125938 & 125820 & 126058 \\
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
+
+ISL1:
+\begin{itemize}
+    \item Average number of LocalSearch Iterations 544.8 for :kroA200.tsp
+    \item Minimum number of LocalSearch Iterations 536 for :kroA200.tsp
+    \item Maximum number of LocalSearch Iterations 561 for :kroA200.tsp
+    \item Average number of LocalSearch Iterations 546.2 for :kroB200.tsp
+    \item Minimum number of LocalSearch Iterations 525 for :kroB200.tsp
+    \item Maximum number of LocalSearch Iterations 566 for :kroB200.tsp
+\end{itemize}
+
+ISL2:
+\begin{itemize}
+    \item Average number of LocalSearch Iterations 650.3 for :kroA200.tsp
+    \item Minimum number of LocalSearch Iterations 462 for :kroA200.tsp
+    \item Maximum number of LocalSearch Iterations 991 for :kroA200.tsp
+    \item Average number of LocalSearch Iterations 495.8 for :kroB200.tsp
+    \item Minimum number of LocalSearch Iterations 362 for :kroB200.tsp
+    \item Maximum number of LocalSearch Iterations 621 for :kroB200.tsp
+\end{itemize}
+
+\subsection{Wizualizacje najlepszych rozwiązań}
+
+\subsubsection{Lokalne przeszukiwanie w wersji MSLS dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroA_MSLS.png}
+\caption{Lokalne przeszukiwanie w wersji MSLS dla kroA200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji ILS1 dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroA_ILS1.png}
+\caption{Lokalne przeszukiwanie w wersji ILS1 dla kroA200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji ILS2 dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroA_ILS2.png}
+\caption{Lokalne przeszukiwanie w wersji ILS2 dla kroA200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji MSLS dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroB_MSLS.png}
+\caption{Lokalne przeszukiwanie w wersji MSLS dla kroB200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji ILS1 dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroB_ILS1.png}
+\caption{Lokalne przeszukiwanie w wersji ILS1 dla kroB200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji ILS2 dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab4/kroB_ILS2.png}
+\caption{Lokalne przeszukiwanie w wersji ILS2 dla kroB200}
+\end{figure}
+
+\subsection{Wnioski}
+
 \section{Zadanie 3}
 
 \subsection{Opis zadania}
@@ -63,27 +258,47 @@ Zadanie polega na poprawie efektywności czasowej lokalnego przeszukiwania w wer
 
 \begin{lstlisting}
 Wygeneruj losowe rozwiązanie.
-Wygeneruj listę wszystkich możliwych ruchów.
+Wygeneruj listę ruchów.
 Powtarzaj:
-    Sprawdź listę ruchów w poszukiwaniu ruchu do wykonania i wykonaj ruch:
-        Przeszukiwanie listy w poszukiwaniu najlepszego aplikowalnego ruchu:
+    Sprawdź listę ruchów:
+        Dla każdego ruchu z listy ruchów:
             Jeżeli typ ruchu to zamiana punktów:
-                Sprawdź czy punkt do wymiany i jego sąsiedzi są w rozwiązaniu.
-                Jeżeli wszystkie trzy punkty są w rozwiązaniu oraz punkt spoza rozwiązania rzeczywiście jest poza rozwiązaniem:
-              		Zamień punkty do wymiany w tym ruchu.
-              		Zapisz ruch jako wykonany ruch.
-               		Dodaj ruch do listy ruchów do usunięcia.
-              	W przeciwnym wypadku:
-                	Dodaj ruch do listy ruchów do usunięcia.
-            W przeciwnym wypadku jeżeli ruch to zamiana krawędzi:
-            	Sprawdzenie czy ruch jest aplikowalny:
-            		Jeżeli w rozwiązaniu są krawędzie do wymiany w tym ruchu i nie są to sąsiednie krawędzie:
-                		Zamień krawędzie ze sobą.
-                		Zapisz ruch jako wykonany ruch.
-               			Dodaj ruch do listy ruchów do usunięcia.
-          			W przeciwnym wypadku:
-                    	Dodaj ruch do listy ruchów do usunięcia.
+                Weź trzy punkty z rozwiązania.
+                Jeżeli wszystkie trzy punkty istnieją oraz punkt spoza rozwiązania rzeczywiście jest poza rozwiązaniem:
+                    Jeżeli pierwszy i drugi punkt z object1 są sąsiadami oraz drugi i trzeci punkt z object1 są sąsiadami:
+                        Oblicz dystans aktualnego rozwiązania.
+                        Dodaj punkty z aktualnego rozwiązania do listy.
+                        Zamień środkowy punkt z trójki punktów z punktem spoza rozwiązania.
+                        Oblicz dystans rozwiązania po zamianie punktów.
+                        Jeżeli różnica dystansów nie jest równa delcie to wyrzuć błąd.
+                        Zapisz ruch jako wykonany ruch.
+                        Dodaj ruch co listy ruchów do usunięcia.
+                    W przeciwnym wypadku:
+                        Dodaj ruch co listy ruchów do usunięcia.
+                W przeciwnym wypadku:
+                    Dodaj ruch co listy ruchów do usunięcia.
+            W przeciwnym wypadku dla zamiany krawędzi:
+                Weź punkty pierwszej krawędzi i punkty drugiej krawędzi.
+                Jeżeli indeks pierwszego punktu z pierwszej krawędzi jest większy od indeksu drugiego punktu i pierwszy punkt nie jest ostatnim punktem, to zamień te punkty ze sobą.
+                Jeżeli indeks pierwszego punktu z drugiej krawędzi jest większy od indeksu drugiego punktu i pierwszy punkt nie jest ostatnim punktem, to zamień te punkty ze sobą.
+                Jeżeli pierwszy ruch z pierwszej pary oraz pierwszy ruch z drugiej pary istnieją:
+                    Jeżeli następny punkt względem pierwszego punktu z pierwszej krawędzi to drugi punkt z pierwszej krawędzi oraz następny punkt względem pierwszego punktu z drugiej krawędzi to drugi punkt z drugiej krawędzi:
+                        Oblicz dystans aktualnego rozwiązania.
+                        Dodaj punkty z aktualnego rozwiązania do listy.
+                        Zamień krawędzie ze sobą.
+                        Oblicz dystans rozwiązania po zamianie krawędzi.
+                        Jeżeli różnica dystansów nie jest równa delcie to wyrzuć błąd.
+                        Zapisz ruch jako wykonany ruch.
+                        Dodaj ruch co listy ruchów do usunięcia.
+                    W przeciwnym wypadku:
+                        Dodaj ruch co listy ruchów do usunięcia.
+                W przeciwnym wypadku:
+                    Dodaj ruch co listy ruchów do usunięcia.
         Usuń z listy ruchów te ruchy, które zostały dodane do listy ruchów do usunięcia.
+        Jeżeli wykonano ruch, to dodaj wykonany ruch do listy
+    Zaktualizuj rozwiązanie.
+    Zaktualizuj listę ruchów.
+    Dodaj ruch do listy poprzednio wykonanych ruchów.
     Przerwij zewnętrzną pętlę jeżeli lista ruchów jest pusta.
 \end{lstlisting}
 
@@ -92,23 +307,28 @@ Powtarzaj:
 \begin{lstlisting}
 Wygeneruj losowe rozwiązanie.
 Powtarzaj:
-	Wygeneruj ruchy kandydackie:
-   		Tworzenie ruchów wymiany wierzchołków:
-        	Dla każdego punktu w rozwiązaniu:
-            	Dla każdego punktu poza rozwiązaniem:
-                	Oblicz deltę dla zamiany tych dwóch punktów (punktu w rozwiązaniu i punktu poza rozwiązaniem).
-                	Jeżeli delta jest mniejsza od zera, to dodaj ten ruch do listy ruchów kandydackich.
-   		Tworzenie ruchów wymiany krawędzi:
-        	Dla każdej krawędzi w rozwiązaniu:
-            	Dla najbliższych punktów do tej krawędzi:
-                	Jeżeli ten punkt jest w rozwiązaniu:
-                        Oblicz deltę dla zamiany krawędzi.
+    Wygeneruj ruchy kandydackie:
+        Znajdź punkty znajdujące się poza rozwiązaniem.
+        Dla każdego typu ruchu:
+            Jeżeli typ ruchu to zamiana punktów:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla każdego punktu poza rozwiązaniem:
+                        Oblicz deltę dla zamianych tych dwóch punktów (punktu w rozwiązaniu i punktu poza rozwiązaniem).
                         Jeżeli delta jest mniejsza od zera, to dodaj ten ruch do listy ruchów kandydackich.
- 	Posortuj wygenerowane ruchy kandydackie od najlepszego do najgorszego.
-	Jeżeli nie wygenerowano ruchów kandydackich lub wszystkie ruchy mają dodatnią deltę:
-    	Przerwij zewnętrzną pętlę
-	W przeciwnym wypadku:
-    	W rozwiązaniu zamień krawędzie wskazane przez najlepszy kandydacki ruch.
+            W przeciwnym wypadku dla zamiany krawędzi:
+                Dla każdego punktu w rozwiązaniu:
+                    Dla najbliższych punktów tego punktu:
+                        Przerwij pętlę, jeżeli nie jest to jeden z pięciu najbliższych punktów.
+                        Przejdź do następnego najbliższego punktu, jeżeli punkt nie leży w aktualnym rozwiązaniu.
+                        Oblicz deltę dla zamiany krawędzi pomiędzy tymi dwoma punktami.
+                        Jeżeli delta jest mniejsza od zera, to dodaj ten ruch do listy ruchów kandydackich.
+        Posortuj wygenerowane ruchy kandydackie od najlepszego do najgorszego.
+    Jeżeli nie wygenerowano ruchów kandydackich, to przerwij zewnętrzną pętlę, w przeciwnym wypadku:
+        Jeżeli delta najlepszego punktu nie jest mniejsza od zera, to przerwij zewnętrzną pętlę, w przeciwnym wypadku:
+            Jeżeli typ najlepszego ruchu to pointOuterInnerChange:
+                W rozwiązaniu zamień punkty wskazane przez najlepszy kandydacki ruch.
+            W przeciwnym wypadku:
+                W rozwiązaniu zamień krawędzie wskazane przez najlepszy kandydacki ruch.
 
 \end{lstlisting}
 
@@ -181,7 +401,7 @@ Powtarzaj:
 
 \subsection{Wnioski}
 
-Z wymienionych wyżej pomiarów można wywnioskować, że wykorzystanie oceny ruchów z poprzednich iteracji albo ruchów kandydackich znacząco przyspieszania działanie algorytmu - czas jednej iteracji jest zredukowany o dwa rzędy wielkości. Dystans osiągany przez zmodyfikowane algorytmy jest zbliżony do tych osiąganych przez algorytm wzorcowy, przy czym wykorzystanie oceny ruchów z poprzednich iteracji uzyskuje średni wynik lepszy od ruchów kandydackich.
+Z wymienionych wyżej pomiarów można wywnioskować, że wykorzystanie oceny ruchów z poprzednich iteracji albo ruchów kandydackich znacząco przyspieszania działanie algorytmu - czas jednej iteracji jest zredukowany o dwa rzędy wielkości. Dystans osiągany przez zmodyfikowane algorytmy jest zbliżony do tych osiąganych przez algorytm wzorcowy, przy czym wykorzystanie oceny ruchów z poprzednich iteracji uzyskuje średni wynik lepszy zarówno od ruchów kandydackich jak i algorytmu wzorcowego.
 
 \section{Zadanie 2}
 

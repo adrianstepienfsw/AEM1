@@ -1,37 +1,34 @@
 import java.util.*;
 
-
 public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
-
     long timeToFinishMs = 0;
     List<Integer> localSearchCount = new ArrayList<>();
 
-    public cAlgorithmIteratedLocalSearch1(cSample _sample, float _percentSmaplesToFinish, long _timeToFinishMs){
+    public cAlgorithmIteratedLocalSearch1(cSample _sample, float _percentSmaplesToFinish, long _timeToFinishMs) {
         super(_sample, _percentSmaplesToFinish);
         timeToFinishMs = _timeToFinishMs;
     }
 
-    public void make(){
-
+    public void make() {
     }
 
     enum enumMoveType {
         cornerChange, pointOuterInnerChange;
     }
 
-    class cPair{
+    class cPair {
         List<cMove> LM;
         cAlgorithmResult result;
         cMove move;
-        public cPair(List<cMove> _lm, cAlgorithmResult _result, cMove _move){
+
+        public cPair(List<cMove> _lm, cAlgorithmResult _result, cMove _move) {
             LM = _lm;
             result = _result;
             move = _move;
         }
-
     }
 
-    class cMove{
+    class cMove {
         List<Integer> object1 = new ArrayList<Integer>();
         List<Integer> object2 = new ArrayList<Integer>();
 
@@ -39,73 +36,72 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
         String source;
         enumMoveType moveType;
 
-        public cMove(List<Integer> _object1, List<Integer> _object2, enumMoveType _moveType, int _delta, String _source){
+        public cMove(List<Integer> _object1, List<Integer> _object2, enumMoveType _moveType, int _delta, String _source) {
             object1 = _object1;
             object2 = _object2;
             moveType = _moveType;
             delta = _delta;
             source = _source;
-
         }
 
-        public int getDelta(){
+        public int getDelta() {
             return this.delta;
         }
     }
 
-    public void testAlgorithm(int countStep, String description){
+    public void testAlgorithm(int countStep, String description) {
         super.testAlgorithm(countStep, description);
         int minLSC = -1;
         int maxLSC = -1;
         double averageLSC = -1;
         double sum = 0;
-        for(int lSC : localSearchCount){         //create statistics
-            if(minLSC == -1 || minLSC > lSC){
+        for (int lSC : localSearchCount) {         //create statistics
+            if (minLSC == -1 || minLSC > lSC) {
                 minLSC = lSC;
             }
-            if(maxLSC < lSC){
+            if (maxLSC < lSC) {
                 maxLSC = lSC;
             }
             sum += lSC;
         }
-        averageLSC = sum/localSearchCount.size();
-        System.out.println("Average number of LocalSearch Iterations "+averageLSC+" for :"+sample.name);
-        System.out.println("Minimum number of LocalSearch Iterations "+minLSC+" for :"+sample.name);
-        System.out.println("Maximum number of LocalSearch Iterations "+maxLSC+" for :"+sample.name);
+        averageLSC = sum / localSearchCount.size();
+        System.out.println("Average number of LocalSearch Iterations " + averageLSC + " for :" + sample.name);
+        System.out.println("Minimum number of LocalSearch Iterations " + minLSC + " for :" + sample.name);
+        System.out.println("Maximum number of LocalSearch Iterations " + maxLSC + " for :" + sample.name);
     }
 
 
-    public List<cMove> generateAllPosibleMoves(cAlgorithmResult actualResult, List<enumMoveType> typesOfMove){
+    public List<cMove> generateAllPosibleMoves(cAlgorithmResult actualResult, List<enumMoveType> typesOfMove) {
         List<cMove> listOfMoves = new ArrayList<>();
 
-        List<Integer> pointsOutOfResult = makeRandomSeriesExcludingList(sample.coordList.size()-actualResult.coordsOnPath.size(), sample.coordList.size(), actualResult.coordsOnPath);
+        List<Integer> pointsOutOfResult = makeRandomSeriesExcludingList(sample.coordList.size() - actualResult.coordsOnPath.size(), sample.coordList.size(), actualResult.coordsOnPath);
 
         int resultSize = actualResult.coordsOnPath.size();
         int outsideResultSize = pointsOutOfResult.size();
 
-        for (enumMoveType moveType : typesOfMove){
-            switch(moveType){
+        for (enumMoveType moveType : typesOfMove) {
+            switch (moveType) {
                 case pointOuterInnerChange:
-                    for(int pointInResult: actualResult.coordsOnPath){
-                        for(int pointOutOfResult: pointsOutOfResult){
+                    for (int pointInResult : actualResult.coordsOnPath) {
+                        for (int pointOutOfResult : pointsOutOfResult) {
                             int delta = calculateDelta(actualResult.coordsOnPath.indexOf(pointInResult), pointOutOfResult, actualResult);
                             //if(delta<0){
-                            listOfMoves.add(new cMove(Arrays.asList(actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult)-1+resultSize)%resultSize),
-                                    pointInResult, actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult)+1+resultSize)%resultSize)),
+                            listOfMoves.add(new cMove(Arrays.asList(actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult) - 1 + resultSize) % resultSize),
+                                    pointInResult, actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult) + 1 + resultSize) % resultSize)),
                                     Arrays.asList(pointOutOfResult), enumMoveType.pointOuterInnerChange, delta, "pointOuterInnerChangeall"));
                             //}
                         }
                     }
                     break;
                 case cornerChange:
-                    for(int pointInResult1: actualResult.coordsOnPath.subList(0, resultSize - 2)){
-                        for(int pointInResult2: actualResult.coordsOnPath.subList(actualResult.coordsOnPath.indexOf(pointInResult1)+2, resultSize)){
+                    for (int pointInResult1 : actualResult.coordsOnPath.subList(0, resultSize - 2)) {
+                        for (int pointInResult2 : actualResult.coordsOnPath.subList(actualResult.coordsOnPath.indexOf(pointInResult1) + 2, resultSize)) {
                             int delta = calculateDeltaToCorners(actualResult.coordsOnPath.indexOf(pointInResult1), actualResult.coordsOnPath.indexOf(pointInResult2), actualResult);
                             //if(delta<0){
                             listOfMoves.add(new cMove(Arrays.asList(pointInResult1,
-                                    actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult1)+1)%resultSize)),
+                                    actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult1) + 1) % resultSize)),
                                     Arrays.asList(pointInResult2,
-                                            actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult2)+1)%resultSize)), enumMoveType.cornerChange, delta, "cornerChangenewsall"));
+                                            actualResult.coordsOnPath.get((actualResult.coordsOnPath.indexOf(pointInResult2) + 1) % resultSize)), enumMoveType.cornerChange, delta, "cornerChangenewsall"));
                             //}
                         }
                     }
@@ -118,8 +114,8 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
         return listOfMoves;
     }
 
-    public cAlgorithmResult makeBestMove(List<cMove> listOfMoves, cAlgorithmResult randomResult){
-        if (listOfMoves.size()>0) {
+    public cAlgorithmResult makeBestMove(List<cMove> listOfMoves, cAlgorithmResult randomResult) {
+        if (listOfMoves.size() > 0) {
             if (listOfMoves.get(0).delta < 0) {
                 if (listOfMoves.get(0).moveType == enumMoveType.pointOuterInnerChange) {
                     randomResult = changePoints(randomResult.coordsOnPath.indexOf(listOfMoves.get(0).object1.get(1)), listOfMoves.get(0).object2.get(0), randomResult);
@@ -133,7 +129,7 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
         return null;
     }
 
-    public cAlgorithmResult perturbate(cAlgorithmResult result){
+    public cAlgorithmResult perturbate(cAlgorithmResult result) {
         cAlgorithmResult returnResult = result.clone();
 
         Random randomGenerator = new Random();
@@ -142,16 +138,15 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
         List<Integer> pointsToChange = makeRandomSeriesExcludingList(10, sample.coordList.size(), returnResult.coordsOnPath);
 
         for (int i = 0; i < 10; i++) {
-            changePoints((random+i)%returnResult.coordsOnPath.size() , pointsToChange.get(i), returnResult);
+            changePoints((random + i) % returnResult.coordsOnPath.size(), pointsToChange.get(i), returnResult);
         }
 
         return returnResult;
     }
 
 
-    public cAlgorithmResult makeStep(){
-
-        cAlgorithmResult result = makeRandomResult((int)Math.floor(sample.coordList.size()*percentSmaplesToFinish));
+    public cAlgorithmResult makeStep() {
+        cAlgorithmResult result = makeRandomResult((int) Math.floor(sample.coordList.size() * percentSmaplesToFinish));
 
         long startTime = System.currentTimeMillis();
 
@@ -168,7 +163,7 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
 
         int localSearchCountTemp = 1;
 
-        while (System.currentTimeMillis()-startTime < timeToFinishMs) {
+        while (System.currentTimeMillis() - startTime < timeToFinishMs) {
             cAlgorithmResult perturbatedResult = perturbate(result);
             localSearchCountTemp++;
 
@@ -184,7 +179,7 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
                     break loop;
             }
 
-            if(perturbatedResult.distance < result.distance)
+            if (perturbatedResult.distance < result.distance)
                 result = perturbatedResult;
         }
 
@@ -192,5 +187,4 @@ public class cAlgorithmIteratedLocalSearch1 extends cAlgorithm {
 
         return result;
     }
-
 }
