@@ -33,8 +33,8 @@ public class cTest {
         //cAlgorithmLocalSearchSteepestCornersChangingCandidatMove localSearchSteepestCornersCandidatMovesSample1 = new cAlgorithmLocalSearchSteepestCornersChangingCandidatMove(sample1, 0.5f);
         //cAlgorithmLocalSearchSteepestCornersChangingCandidatMove localSearchSteepestCornersCandidatMovesSample2 = new cAlgorithmLocalSearchSteepestCornersChangingCandidatMove(sample2, 0.5f);
 
-        cAlgorithmMultipleStartLocalSearch MSLSsample1 = new cAlgorithmMultipleStartLocalSearch(sample1, 0.5f);
-        cAlgorithmMultipleStartLocalSearch MSLSsample2 = new cAlgorithmMultipleStartLocalSearch(sample2, 0.5f);
+        /*cAlgorithmMultipleStartLocalSearch MSLSsample1 = new cAlgorithmMultipleStartLocalSearch(sample1, 0.5f);
+        cAlgorithmMultipleStartLocalSearch MSLSsample2 = new cAlgorithmMultipleStartLocalSearch(sample2, 0.5f);*/
 
 
         //Making
@@ -57,8 +57,10 @@ public class cTest {
         //localSearchSteepestCornersCandidatMovesSample1.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using Candidat Moves from previous step for :"+sample1.name);
         //localSearchSteepestCornersCandidatMovesSample2.testAlgorithm(100, "Making Local Search Steepest (changing with corners) Algorithm using Candidat Moves from previous step for :"+sample2.name);
 
+        /*
         MSLSsample1.testAlgorithm(10, "MSLS :"+sample1.name);
         MSLSsample2.testAlgorithm(10, "MSLS :"+sample2.name);
+
 
         cAlgorithmIteratedLocalSearch1 ILS1sample1 = new cAlgorithmIteratedLocalSearch1(sample1, 0.5f, MSLSsample1.averageTime);
         cAlgorithmIteratedLocalSearch1 ILS1sample2 = new cAlgorithmIteratedLocalSearch1(sample2, 0.5f, MSLSsample2.averageTime);
@@ -67,7 +69,14 @@ public class cTest {
         cAlgorithmIteratedLocalSearch2 ILS2sample1 = new cAlgorithmIteratedLocalSearch2(sample1, 0.5f, MSLSsample1.averageTime);
         cAlgorithmIteratedLocalSearch2 ILS2sample2 = new cAlgorithmIteratedLocalSearch2(sample2, 0.5f, MSLSsample2.averageTime);
         ILS2sample1.testAlgorithm(10, "ILS2 :"+sample1.name);
-        ILS2sample2.testAlgorithm(10, "ILS2 :"+sample2.name);
+        ILS2sample2.testAlgorithm(10, "ILS2 :"+sample2.name);*/
+
+        cAlgorithmSteadyState steadyState1 = new cAlgorithmSteadyState(sample1, 0.5f, 20, 126000);
+        cAlgorithmSteadyState steadyState2 = new cAlgorithmSteadyState(sample2, 0.5f, 20, 126000);
+
+        steadyState1.testAlgorithm(100, "SteadyState :"+sample1.name);
+        steadyState2.testAlgorithm(100, "SteadyState :"+sample1.name);
+
 
         EventQueue.invokeLater(() -> {
             //Painting
@@ -89,12 +98,15 @@ public class cTest {
             //new cMyFrame(sample1,  localSearchSteepestCornersCandidatMovesSample1.listOfResults.get(localSearchSteepestCornersCandidatMovesSample1.minDistanceIndex), localSearchSteepestCornersCandidatMovesSample1.getClass().getName());
             //new cMyFrame(sample2,  localSearchSteepestCornersCandidatMovesSample2.listOfResults.get(localSearchSteepestCornersCandidatMovesSample2.minDistanceIndex), localSearchSteepestCornersCandidatMovesSample2.getClass().getName());
 
-            new cMyFrame(sample1,  MSLSsample1.listOfResults.get(MSLSsample1.minDistanceIndex), MSLSsample1.getClass().getName());
+           /* new cMyFrame(sample1,  MSLSsample1.listOfResults.get(MSLSsample1.minDistanceIndex), MSLSsample1.getClass().getName());
             new cMyFrame(sample2,  MSLSsample2.listOfResults.get(MSLSsample2.minDistanceIndex), MSLSsample2.getClass().getName());
             new cMyFrame(sample1,  ILS1sample1.listOfResults.get(ILS1sample1.minDistanceIndex), ILS1sample1.getClass().getName());
             new cMyFrame(sample2,  ILS1sample2.listOfResults.get(ILS1sample2.minDistanceIndex), ILS1sample2.getClass().getName());
             new cMyFrame(sample1,  ILS2sample1.listOfResults.get(ILS2sample1.minDistanceIndex), ILS2sample1.getClass().getName());
-            new cMyFrame(sample2,  ILS2sample2.listOfResults.get(ILS2sample2.minDistanceIndex), ILS2sample2.getClass().getName());
+            new cMyFrame(sample2,  ILS2sample2.listOfResults.get(ILS2sample2.minDistanceIndex), ILS2sample2.getClass().getName());*/
+
+            new cMyFrame(sample1,  steadyState1.listOfResults.get(steadyState1.minDistanceIndex), steadyState1.getClass().getName());
+            new cMyFrame(sample2,  steadyState2.listOfResults.get(steadyState2.minDistanceIndex), steadyState2.getClass().getName());
         });
     }
 }

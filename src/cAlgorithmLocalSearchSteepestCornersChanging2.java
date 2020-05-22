@@ -124,4 +124,34 @@ public class cAlgorithmLocalSearchSteepestCornersChanging2 extends cAlgorithm {
         return randomResult;
     }
 
+    public cAlgorithmResult makeBestMove(List<cMove> listOfMoves, cAlgorithmResult randomResult) {
+        if (listOfMoves.size() > 0) {
+            if (listOfMoves.get(0).delta < 0) {
+                if (listOfMoves.get(0).moveType == enumMoveType.pointOuterInnerChange) {
+                    randomResult = changePoints(randomResult.coordsOnPath.indexOf(listOfMoves.get(0).object1.get(1)), listOfMoves.get(0).object2.get(0), randomResult);
+                    return randomResult;
+                } else if (listOfMoves.get(0).moveType == enumMoveType.cornerChange) {
+                    randomResult = changeCorners(randomResult.coordsOnPath.indexOf(listOfMoves.get(0).object1.get(0)), randomResult.coordsOnPath.indexOf(listOfMoves.get(0).object2.get(0)), randomResult);
+                    return randomResult;
+                }
+            }
+        }
+        return null;
+    }
+
+    public cAlgorithmResult makeStep(cAlgorithmResult result){
+        loop:
+        while (true) {
+            List<cMove> listOfMoves = generateAllPosibleMoves(result, Arrays.asList(enumMoveType.cornerChange, enumMoveType.pointOuterInnerChange));
+
+            cAlgorithmResult res = makeBestMove(listOfMoves, result);
+            if (res != null)
+                result = res;
+            else
+                break loop;
+        }
+
+        return result;
+    }
+
 }

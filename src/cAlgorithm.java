@@ -69,6 +69,10 @@ public abstract class cAlgorithm {
             coordsOnPath.add(point);
         }
 
+        double getDistance(){
+            return this.distance;
+        }
+
         public cAlgorithmResult clone(){
             cAlgorithmResult returnResult = new cAlgorithmResult();
             returnResult.distance = this.distance;
@@ -474,6 +478,41 @@ public abstract class cAlgorithm {
             result.add(list.get(x.get(i)));
             i++;
         }
+        return result;
+    }
+
+    //generate disjunctive part of the collection
+    public List<Integer> makeDisjunctiveList(List<Integer> list1, List<Integer> list2) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int integer1 : list1) {
+            boolean is = false;
+            loop:
+            for (int integer2 : list2) {
+                if(integer1 == integer2){
+                    is = true;
+                    break loop;
+                }
+            }
+            if(is == false){
+                result.add(integer1);
+            }
+        }
+        for (int integer1 : list2) {
+            boolean is = false;
+            loop:
+            for (int integer2 : list1) {
+                if(integer1 == integer2){
+                    is = true;
+                    break loop;
+                }
+            }
+            if(is == false){
+                result.add(integer1);
+            }
+        }
+
+
         return result;
     }
 }
