@@ -74,8 +74,8 @@ public class cTest {
         cAlgorithmSteadyState steadyState1 = new cAlgorithmSteadyState(sample1, 0.5f, 20, 126000);
         cAlgorithmSteadyState steadyState2 = new cAlgorithmSteadyState(sample2, 0.5f, 20, 126000);
 
-        steadyState1.testAlgorithm(100, "SteadyState :"+sample1.name);
-        steadyState2.testAlgorithm(100, "SteadyState :"+sample1.name);
+        steadyState1.testAlgorithm(10, "SteadyState :"+sample1.name);
+        steadyState2.testAlgorithm(10, "SteadyState :"+sample2.name);
 
 
         EventQueue.invokeLater(() -> {

@@ -51,6 +51,93 @@
 
 \maketitle
 
+\section{Zadanie 5}
+
+\subsection{Opis zadania}
+
+Celem zadania jest implementacja hybrydowego algorytmu ewolucyjnego i porównanie go z metodami MSLS i ILSx zaimplementowanymi w zadaniu 4.
+
+\subsection{Opis zaimplementowanych algorytmów}
+
+\subsubsection{Steady State}
+
+\begin{lstlisting}
+Wygeneruj listę 20 losowych rozwiązań.
+Powtarzaj  dopóki nie osiągnięto określonego  czasu:
+    Wylosuj parę rozwiązań.
+    Dokonaj rekombinacji na podstawie wylosowanej pary:
+        Przygotuj puste rozwiązanie.
+        Dodaj każdy punkt, który znajduje się w obu rozwiązaniach.
+        Jeżeli rezultat rekombinacji jest pełny:
+            ???
+        W przeciwnym wypadku:
+            Oblicz liczbę wierzchołków, które należy dodać.
+            Przygotuj listę z wierzchołkami należącymi do pierwszego lub drugiego rozwiązania.
+            Wylosuj z tej listy tyle wierzchołków, ile należy dodać.
+            Dodaj wylosowane wierzchołki do rozwiązania.
+    Wykonaj lokalne przeszukiwanie na podstawie wyniku rekombinacji.
+    Posortuj listę rozwiązań.
+    Jeżeli najgorsze rozwiązanie z listy jest gorsze od uzyskanego rozwiązania i jego dystans nie powtarza się w liście rozwiązań, to usuń najgorsze rozwiązanie i dodaj uzyskane rozwiązanie.
+\end{lstlisting}
+
+\subsection{Wyniki pomiarów}
+
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l | l | l | l }
+		\textbf{Pomiar} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} & \textbf{\makecell{Średni \\ czas [ms]}} & \textbf{\makecell{Minimalny \\ czas [ms]}} & \textbf{\makecell{Maksymalny \\ czas [ms]}} \\
+		\hline
+		\makecell{Lokalne przeszukiwanie \\ w wersji MSLS \\ dla kroA200} & 15137.5 & 14608.0 & 15476.0 & 126088 & 123303 & 129858 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ILS1 \\ dla kroA200} & 13339.9 & 12955.0 & 13567.0 & 126190 & 126095 & 126424 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ILS2 \\ dla kroA200} & 14329.2 & 13072.0 & 16294.0 & 126211 & 126126 & 126308 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji Steady State \\ dla kroA200} & 13424.6 & 13045.0 & 14045.0 & 126089 & 126005 & 126198 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji MSLS \\ dla kroB200} & 15339.5 & 14850.0 & 15748.0 & 125760 & 123343 & 129725 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ILS1 \\ dla kroB200} & 13546.5 & 13288.0 & 14187.0 & 125837 & 125768 & 126027 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji ILS2 \\ dla kroB200} & 14554.5 & 13828.0 & 15429.0 & 125938 & 125820 & 126058 \\
+		\makecell{Lokalne przeszukiwanie \\ w wersji Steady State \\ dla kroB200} & 14169.7 & 13525.0 & 14781.0 & 126183 & 126011 & 126462 \\
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
+
+\subsubsection{Liczba iteracji lokalnego przeszukiwania}
+
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l }
+		\textbf{Algorytm} & \textbf{\makecell{Wartość \\ średnia}} & \textbf{\makecell{Wartość \\ minimalna}} & \textbf{\makecell{Wartość \\ maksymalna}} \\
+		\hline
+		\makecell{ILS1 dla kroA200} & 544.8 & 536 & 561 \\
+		\makecell{ILS2 dla kroA200} & 650.3 & 462 & 991 \\
+		\makecell{Steady State dla kroA200} & 310.3 & 219 & 429 \\
+		\makecell{ILS1 dla kroB200} & 546.2 & 525 & 566 \\
+		\makecell{ILS2 dla kroB200} & 495.8 & 362 & 621 \\
+		\makecell{Steady State dla kroB200} & 272.1 & 223 & 367 \\
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
+
+\subsection{Wizualizacje najlepszych rozwiązań}
+
+\subsubsection{Lokalne przeszukiwanie w wersji Steady State dla kroA200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab5/kroA_steady_state.png}
+\caption{Lokalne przeszukiwanie w wersji Steady State dla kroA200}
+\end{figure}
+
+\subsubsection{Lokalne przeszukiwanie w wersji Steady State dla kroB200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{lab5/kroB_steady_state.png}
+\caption{Lokalne przeszukiwanie w wersji Steady State dla kroB200}
+\end{figure}
+
+\subsection{Wnioski}
+
+Algorytm ewolucyjny osiągnął lepsze rezultaty zarówno od MSLS jak i od ILS2, okazał się jednak gorszy od od ILS1. Wyniki te powtórzyły się dla obu instancji. Czas wykonania jednej iteracji był gorszy od obu alorytmów ILS, jednak nadal był szybszy od algorytmu MSLS (algorytm ewolucyjny był około 3 razy szybszy od MSLS).
+
 \section{Zadanie 4}
 
 \subsection{Opis zadania}
