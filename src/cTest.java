@@ -71,12 +71,21 @@ public class cTest {
         ILS2sample1.testAlgorithm(10, "ILS2 :"+sample1.name);
         ILS2sample2.testAlgorithm(10, "ILS2 :"+sample2.name);*/
 
-        cAlgorithmSteadyState steadyState1 = new cAlgorithmSteadyState(sample1, 0.5f, 20, 126000);
-        cAlgorithmSteadyState steadyState2 = new cAlgorithmSteadyState(sample2, 0.5f, 20, 126000);
+        //cAlgorithmSteadyState steadyState1 = new cAlgorithmSteadyState(sample1, 0.5f, 20, 126000);
+        //cAlgorithmSteadyState steadyState2 = new cAlgorithmSteadyState(sample2, 0.5f, 20, 126000);
 
-        steadyState1.testAlgorithm(10, "SteadyState :"+sample1.name);
-        steadyState2.testAlgorithm(10, "SteadyState :"+sample2.name);
+        //steadyState1.testAlgorithm(10, "SteadyState :"+sample1.name);
+        //steadyState2.testAlgorithm(10, "SteadyState :"+sample2.name);
 
+        //making test
+        cAlgorithmLocalSearchGreedyCornersChanging lS1 = new cAlgorithmLocalSearchGreedyCornersChanging(sample1, 0.5f);
+        cAlgorithmLocalSearchGreedyCornersChanging lS2 = new cAlgorithmLocalSearchGreedyCornersChanging(sample2, 0.5f);
+
+        lS1.sampleName = "Sample1";
+        lS2.sampleName = "Sample2";
+
+        lS1.test();
+        lS2.test();
 
         EventQueue.invokeLater(() -> {
             //Painting
@@ -105,8 +114,8 @@ public class cTest {
             new cMyFrame(sample1,  ILS2sample1.listOfResults.get(ILS2sample1.minDistanceIndex), ILS2sample1.getClass().getName());
             new cMyFrame(sample2,  ILS2sample2.listOfResults.get(ILS2sample2.minDistanceIndex), ILS2sample2.getClass().getName());*/
 
-            new cMyFrame(sample1,  steadyState1.listOfResults.get(steadyState1.minDistanceIndex), steadyState1.getClass().getName());
-            new cMyFrame(sample2,  steadyState2.listOfResults.get(steadyState2.minDistanceIndex), steadyState2.getClass().getName());
+            //new cMyFrame(sample1,  steadyState1.listOfResults.get(steadyState1.minDistanceIndex), steadyState1.getClass().getName());
+            //new cMyFrame(sample2,  steadyState2.listOfResults.get(steadyState2.minDistanceIndex), steadyState2.getClass().getName());
         });
     }
 }
