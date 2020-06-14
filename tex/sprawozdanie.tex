@@ -51,6 +51,90 @@
 
 \maketitle
 
+\section{Zadanie 6}
+
+\subsection{Opis zadania}
+
+Celem zadania jest test globalnej wypukłości. W zadaniu wygenerowane zostało 1000 losowych optimów lokalnych i narysowane zostały wykresy podobieństw tych optimów do siebie dla instancji kroa200 i krob200.
+
+
+\subsection{Wygenerowane wykresy}
+
+\subsubsection{Podobieństwo najlepszego rozwiązania do pozostałych}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/bpa.png}
+\caption{Podobieństwo rozwiązań o odpowiedniej funkcji celu do najlepszego rozwiązania dla kroA200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/bpb.png}
+\caption{Podobieństwo rozwiązań o odpowiedniej funkcji celu do najlepszego rozwiązania dla kroB200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/bca.png}
+\caption{Podobieństwo rozwiązań o odpowiedniej funkcji celu do najlepszego rozwiązania dla kroA200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/bcb.png}
+\caption{Podobieństwo rozwiązań o odpowiedniej funkcji celu do najlepszego rozwiązania dla kroB200}
+\end{figure}
+
+\subsubsection{Średnie podobieństwo rozwiązania do pozostałych}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/apa.png}
+\caption{Średnie podobieństwo rozwiązań o odpowiedniej funkcji celu do reszty rozwiązań dla kroA200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/apb.png}
+\caption{Średnie podobieństwo rozwiązań o odpowiedniej funkcji celu do reszty rozwiązań dla kroB200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/aca.png}
+\caption{Średnie podobieństwo rozwiązań o odpowiedniej funkcji celu do reszty rozwiązań dla kroA200}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=300px]{lab6/acb.png}
+\caption{Średnie podobieństwo rozwiązań o odpowiedniej funkcji celu do reszty rozwiązań dla kroB200}
+\end{figure}
+
+\subsection{Współczynniki korelacji}
+\begin{center}
+	\hspace*{-3.25cm}
+	\begin{tabular}{ l | l | l | l | l | l | l }
+		\textbf{Miara podobieństwa} & \textbf{\makecell{Instancja}} & \textbf{\makecell{Współczynnik korelacji}} \\
+		\hline
+		\makecell{Średnie do reszty rozwiązań (wierzchołki)} & kroa200 & -0.81\\
+		\makecell{Średnie do reszty rozwiązań (wierzchołki)} & krob200 & -0.77\\
+		\makecell{Średnie do reszty rozwiązań (krawędzie)} & kroa200 & -0.93\\
+		\makecell{Średnie do reszty rozwiązań (krawędzie)} & krob200 & -0.96\\
+		\makecell{Do najlepszego rozwiązania (wierzchołki)} & krob200 & -0.71\\
+		\makecell{Do najlepszego rozwiązania (wierzchołki)} & krob200 & -0.59\\
+		\makecell{Do najlepszego rozwiązania (krawędzie)} & krob200 & -0.75\\
+		\makecell{Do najlepszego rozwiązania (krawędzie)} & krob200 & -0.67\\
+
+	\end{tabular}
+	\hspace*{-3.25cm}
+\end{center}
+
+\subsection{Wnioski}
+
+Po wykonaniu testów można stwierdzić, że czym rozwiązanie ma mniejszą funkcję celu tym jest bardziej podobne do najlepszego rozwiązania i do reszty rozwiązań będących optimum lokalnym. Można też powiedzieć, że w przypadku podobieństwa do najlepszego rozwiązania współczynniki korelacji są mniejsze niż przy podobieństwie do reszty rozwiązań. 
+
 \section{Zadanie 5}
 
 \subsection{Opis zadania}
